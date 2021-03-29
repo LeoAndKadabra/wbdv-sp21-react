@@ -25,14 +25,11 @@ const SearchPage = () => {
     <div>
       <h2>Search Page</h2>
       <input value={searchTitle}
-             onChange={(event) => {
-               setSearchTitle(event.target.value)
-             }}
+             onChange={(event) =>
+                 setSearchTitle(event.target.value)}
              className="form-control"/>
       <button
-          onClick={() => {
-            findMovieByTitle(searchTitle)
-          }}
+          onClick={() => findMovieByTitle(searchTitle)}
           className="btn btn-primary">
         Search
       </button>
@@ -49,7 +46,7 @@ const SearchPage = () => {
           })
         }
       </ul>
-      </div>
+    </div>
   )
 }
 
