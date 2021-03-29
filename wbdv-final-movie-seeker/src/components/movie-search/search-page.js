@@ -9,9 +9,11 @@ const SearchPage = () => {
   const [results, setResults] = useState({Search: []})
 
   useEffect(() => {
-    setSearchTitle(title)
-    findMovieByTitle(title)
-  }, [])
+    if (title) {
+      setSearchTitle(title)
+      findMovieByTitle(title)
+    }
+  }, [title])
 
   const findMovieByTitle = (title) => {
     history.push(title)
@@ -25,11 +27,15 @@ const SearchPage = () => {
     <div>
       <h2>Search Page</h2>
       <input value={searchTitle}
-             onChange={(event) =>
-                 setSearchTitle(event.target.value)}
+             onChange={(event) => {
+                 setSearchTitle(event.target.value)
+               }}
              className="form-control"/>
       <button
-          onClick={() => findMovieByTitle(searchTitle)}
+          onClick={() => {
+            history.push(`/search/${searchTitle}`)
+            findMovieByTitle(searchTitle)
+          }}
           className="btn btn-primary">
         Search
       </button>
@@ -37,9 +43,9 @@ const SearchPage = () => {
         {
           results && results.Search && results.Search.map((movie) => {
             return (
-              <li className="list-group-item">
-                <Link to={'$movie.imdbID'}>
-                  {movie.title}
+              <li key={movie.imdbID} className="list-group-item">
+                <Link to={`/details/${movie.imdbID}`}>
+                  {movie.Title}
                 </Link>
               </li>
             )
