@@ -23,6 +23,10 @@ const SearchPage = () => {
     })
   }
 
+  const rollDice = (list) => {
+    history.push(`/details/${list[Math.floor((Math.random()*list.length))].imdbID}`)
+  }
+
   return (
     <div>
       <h2>Search Page</h2>
@@ -39,6 +43,7 @@ const SearchPage = () => {
           className="btn btn-primary">
         Search
       </button>
+
       <ul className="list-group">
         {
           results && results.Search && results.Search.map((movie) => {
@@ -51,8 +56,15 @@ const SearchPage = () => {
             )
           })
         }
+        <div>
+          <button
+              onClick={() => rollDice(results.Search)}
+              className="btn btn-primary">
+            Roll a dice?
+          </button>
+        </div>
       </ul>
-      </div>
+    </div>
   )
 }
 
