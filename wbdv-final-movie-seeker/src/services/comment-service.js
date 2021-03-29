@@ -1,4 +1,3 @@
-// Optional for P1
 // Store comments on the server
 import Comment from '../models/comment'
 
@@ -51,3 +50,4 @@ export default {
   deleteComment,
   updateComment
 }
+

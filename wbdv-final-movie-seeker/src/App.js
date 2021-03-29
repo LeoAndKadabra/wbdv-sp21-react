@@ -6,7 +6,7 @@ import React from 'react'
 
 function App() {
   return (
-      <div className="container-fluid">
+      <div className="container">
         <BrowserRouter>
           <Route path="/" exact={true}>
             <Home/>

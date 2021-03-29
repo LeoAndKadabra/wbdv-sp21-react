@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
+=======
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+>>>>>>> d2e47a52fcaa1990e056ace0cb65cf5e97c6a365
 
 ReactDOM.render(
   <React.StrictMode>
