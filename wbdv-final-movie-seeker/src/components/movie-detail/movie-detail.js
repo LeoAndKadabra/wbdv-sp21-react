@@ -52,13 +52,14 @@ const MovieDetail = ({movie, history}) => {
                 </div>
             </div>
             <div className="row p-2">
-                <p className="text-success h5">
-                    {movie.Title} Brief Introduction ------
-                </p>
-                <hr/>
-                <p>
-                    {movie.Plot}
-                </p>
+                <div className="col">
+                    <p className="text-success h5">
+                        {movie.Title} Brief Introduction ------
+                    </p>
+                    <p>
+                        {movie.Plot}
+                    </p>
+                </div>
             </div>
         </>
     )
