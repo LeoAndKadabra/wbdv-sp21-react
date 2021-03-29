@@ -1,4 +1,4 @@
-const apiKey = "6f648f62"
+const apiKey = "8c978840"
 
 const findMoviesByTitle = (title) => {
     return fetch(getSearchUrlByTitle(title))

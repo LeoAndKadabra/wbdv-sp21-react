@@ -1,11 +1,27 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {useHistory, useParams} from 'react-router-dom'
+import MovieDetail from "./movie-detail";
+import movieService from '../../services/movie-service'
+import MovieComment from "./movie-comment";
 
 const DetailPage = () => {
-    return
-    (
-        <div>
-            PlaceHolder
-        </div>
+    const {imdbID} = useParams()
+    const history = useHistory()
+    const [movie, setMovie] = useState({})
+    useEffect(() => {
+        findMovieByImdbID()
+    }, [])
+    const findMovieByImdbID = () => {
+        movieService.findMovieByImdbID(imdbID)
+            .then((data) => {
+                setMovie(data)
+            })
+    }
+    return(
+        <>
+            <MovieDetail movie={movie} history={history}/>
+            {/*<MovieComment />*/}
+        </>
     )
 }
 
