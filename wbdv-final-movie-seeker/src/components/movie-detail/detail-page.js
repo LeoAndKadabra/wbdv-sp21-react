@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+import React from 'react'
+
+const DetailPage = () => {
+    return
+    (
+        <div>
+            PlaceHolder
+        </div>
+=======
 import React, {useEffect, useState} from 'react'
 import {useHistory, useParams} from 'react-router-dom'
 import MovieDetail from "./movie-detail";
@@ -22,6 +32,7 @@ const DetailPage = () => {
             <MovieDetail movie={movie} history={history}/>
             {/*<MovieComment />*/}
         </>
+>>>>>>> d2e47a52fcaa1990e056ace0cb65cf5e97c6a365
     )
 }
 
