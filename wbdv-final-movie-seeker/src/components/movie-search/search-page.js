@@ -40,9 +40,9 @@ const SearchPage = () => {
         {
           results && results.Search && results.Search.map((movie) => {
             return (
-              <li className="list-group-item">
+              <li key={movie.imdbID} className="list-group-item">
                 <Link to={'$movie.imdbID'}>
-                  {movie.title}
+                  {movie.Title}
                 </Link>
               </li>
             )
