@@ -19,7 +19,7 @@ const MovieComment = (comments) => {
                     comments.map(comment =>
                         <tr>
                             <td>{comment.user}</td>
-                            <td>{acomment.content}</td>
+                            <td>{comment.content}</td>
                             <td><Rating name="read-only" value={comment.rating} readOnly /></td>
                         </tr>)
                 }

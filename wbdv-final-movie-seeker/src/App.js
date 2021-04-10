@@ -3,7 +3,7 @@ import DetailPage from "./components/movie-detail/detail-page"
 import Home from "./components/home";
 import ProfilePage from "./components/User/profile-page";
 import LoginPage from "./components/User/login-page";
-import RegisterPage from "./components/User/register-page";
+import SignupPage from "./components/User/signup-page";
 import {BrowserRouter, Route} from "react-router-dom";
 import React from 'react'
 
@@ -27,8 +27,11 @@ function App() {
         <Route path="/login" exact={true}>
             <LoginPage/>
         </Route>
+        <Route path="/signup" exact={true}>
+          <SignupPage/>
+        </Route>
         <Route path="/register" exact={true}>
-            <RegisterPage/>
+            <SignupPage/>
         </Route>
         </BrowserRouter>
       </div>
