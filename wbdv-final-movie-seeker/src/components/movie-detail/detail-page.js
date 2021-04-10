@@ -20,7 +20,10 @@ const DetailPage = () => {
     return(
         <>
             <MovieDetail movie={movie} history={history}/>
-            {/*<MovieComment />*/}
+            <MovieComment comments = {[
+                {user: "bb", content: "I like it", rating: 5},
+                {user: "bb2", content: "I like it2", rating: 5}
+                ]}/>
         </>
     )
 }

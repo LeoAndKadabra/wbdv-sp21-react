@@ -3,11 +3,13 @@ class Comment {
   user;
   movie;
   content;
+  rating;
 
-  constructor(id, user, movie, content) {
+  constructor(id, user, movie, content, rating) {
     this.id = id;
     this.user = user;
     this.movie = movie;
     this.content = content;
+    this.rating = rating;
   }
 }
