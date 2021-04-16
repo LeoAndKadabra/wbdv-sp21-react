@@ -1,7 +1,10 @@
 import UserService from "../services/user-service";
 
-const getUserByCredential = (user, dispatch) => { // Use this for login
-    UserService.login(user)
+const getUserByCredential = (dispatch, userName, pwd) => { // Use this for login
+    UserService.login({
+        username: userName,
+        password: pwd
+    })
         .then(user => {
             dispatch({
                 type: "FIND_USER",
@@ -18,11 +21,12 @@ const updateUser = (user, dispatch) => { // Use this for user update
         }))
 }
 
-const clearCurrentUser = (user, dispatch) => // User this for logout
+const clearCurrentUser = (user, dispatch) => {// User this for logout
     UserService.logout()
     dispatch({
         type: "DELETE_USER"
     })
+}
 
 const deleteUser = (user, dispatch) => // Use this for delete user
     UserService.deleteUser(user)

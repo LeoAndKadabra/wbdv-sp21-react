@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer, useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,10 +11,13 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {loginStyles} from './login-page';
 
+import userService from '../../services/user-service'
+
 
 export default function SignUpPage() {
   const classes = loginStyles();
-
+  const userRef = useRef("user");
+  const pwdRef = useRef("123");
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -35,7 +38,7 @@ export default function SignUpPage() {
                     id="name"
                     label="name"
                     name="name"
-                    ref="nameField"
+                    inputRef={userRef}
                     autoComplete="lname"
                 />
               </Grid>
@@ -47,7 +50,7 @@ export default function SignUpPage() {
                     id="email"
                     label="Email Address"
                     name="email"
-                    ref="emailField"
+                    //ref="emailField"
                     autoComplete="email"
                 />
               </Grid>
@@ -60,7 +63,7 @@ export default function SignUpPage() {
                     label="Password"
                     type="password"
                     id="password"
-                    ref="passwordField"
+                    inputRef={pwdRef}
                     autoComplete="current-password"
                 />
               </Grid>
@@ -73,7 +76,7 @@ export default function SignUpPage() {
                     label="Address"
                     type="address"
                     id="address"
-                    ref="addressField"
+                    //ref="addressField"
                     autoComplete="address"
                 />
               </Grid>
@@ -84,6 +87,16 @@ export default function SignUpPage() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={() => {
+                    let userName=userRef.current.value
+                    let password=pwdRef.current.value
+                    userService.register({
+                        username: userName,
+                        password: password
+                    }).then(
+                        user => console.log(user)
+                    )
+                }}
             >
               Sign Up
             </Button>

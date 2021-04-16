@@ -14,7 +14,9 @@ export const register = (user) =>
             'content-type': 'application/json'
         }
     })
-    .then(response => response.json());
+    .then(
+        response => response.json()
+    );
 
 export const login = (user) =>
     fetch(`${USER_URL}/login`, {

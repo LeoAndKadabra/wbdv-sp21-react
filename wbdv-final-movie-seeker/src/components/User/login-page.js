@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,9 @@ import LocalMovies from '@material-ui/icons/LocalMovies';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {connect} from 'react-redux'
+import userAction from '../../actions/user-action'
+import userService from "../../services/user-service";
 
 export const loginStyles = makeStyles((theme) => ({
   root: {
@@ -42,12 +45,21 @@ export const loginStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginPage() {
+const LoginPage = (
+    {
+      currentUser={},
+      login
+    }
+) => {
   const classes = loginStyles();
-
+  const userRef = useRef("user");
+  const pwdRef = useRef("123");
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <div className="h1">
+          {currentUser}
+        </div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LocalMovies />
@@ -61,10 +73,11 @@ export default function LoginPage() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="userName"
+                label="User Name"
+                name="userName"
+                //autoComplete="email"
+                inputRef={userField}
                 autoFocus
             />
             <TextField
@@ -77,6 +90,7 @@ export default function LoginPage() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={pwdRef}
             />
             <Button
                 href="/profile/1"
@@ -85,6 +99,11 @@ export default function LoginPage() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={() => {
+                  let userName=userRef.current.value
+                  let password=pwdRef.current.value
+
+                }}
             >
               Sign In
             </Button>
@@ -104,3 +123,16 @@ export default function LoginPage() {
       </Container>
   );
 }
+
+const stpm = (state) => {
+  return {
+    currentUser: state.userReducer.currentUser
+  }
+}
+const dtpm = (dispatch) => {
+  return {
+    login: (userName, pwd) => userAction.getUserByCredential(dispatch, userName, pwd)
+  }
+}
+
+export default connect(stpm, dtpm)(LoginPage)
