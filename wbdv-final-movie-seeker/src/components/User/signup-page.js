@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useReducer, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -27,26 +27,15 @@ export default function SignUpPage() {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
+                    id="name"
+                    label="name"
+                    name="name"
+                    ref="nameField"
                     autoComplete="lname"
                 />
               </Grid>
@@ -58,6 +47,7 @@ export default function SignUpPage() {
                     id="email"
                     label="Email Address"
                     name="email"
+                    ref="emailField"
                     autoComplete="email"
                 />
               </Grid>
@@ -70,7 +60,21 @@ export default function SignUpPage() {
                     label="Password"
                     type="password"
                     id="password"
+                    ref="passwordField"
                     autoComplete="current-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="address"
+                    label="Address"
+                    type="address"
+                    id="address"
+                    ref="addressField"
+                    autoComplete="address"
                 />
               </Grid>
             </Grid>
