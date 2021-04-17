@@ -17,7 +17,9 @@ import userService from '../../services/user-service'
 export default function SignUpPage() {
   const classes = loginStyles();
   const userRef = useRef("user");
-  const pwdRef = useRef("123");
+  const pwdRef = useRef("pwd");
+  const emailRef = useRef("email");
+  const addrRef = useRef("addr");
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -50,7 +52,7 @@ export default function SignUpPage() {
                     id="email"
                     label="Email Address"
                     name="email"
-                    //ref="emailField"
+                    inputRef={emailRef}
                     autoComplete="email"
                 />
               </Grid>
@@ -76,13 +78,12 @@ export default function SignUpPage() {
                     label="Address"
                     type="address"
                     id="address"
-                    //ref="addressField"
+                    inputRef={addrRef}
                     autoComplete="address"
                 />
               </Grid>
             </Grid>
             <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -92,7 +93,9 @@ export default function SignUpPage() {
                     let password=pwdRef.current.value
                     userService.register({
                         username: userName,
-                        password: password
+                        password: password,
+                        address:  addrRef.current.value,
+                        email: emailRef.current.value,
                     }).then(
                         user => console.log(user)
                     )

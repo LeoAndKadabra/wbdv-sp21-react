@@ -48,7 +48,7 @@ export const loginStyles = makeStyles((theme) => ({
 
 const LoginPage = ({
                      currentUser={
-                       username:"not logged in"
+                       username:"Please log in"
                      },
                      login
                    }) => {
@@ -93,7 +93,6 @@ const LoginPage = ({
             />
             <Button
                 //href="/profile/1"
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -102,6 +101,7 @@ const LoginPage = ({
                   let userName=userRef.current.value
                   let password=pwdRef.current.value
                   login(userName, password)
+                  console.log("currentUser:", currentUser)
                 }}
             >
               Sign In
