@@ -10,9 +10,10 @@ import LocalMovies from '@material-ui/icons/LocalMovies';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import userService from "../../services/user-service";
+
 import {connect} from 'react-redux'
 import userAction from '../../actions/user-action'
-import userService from "../../services/user-service";
 
 export const loginStyles = makeStyles((theme) => ({
   root: {
@@ -45,55 +46,53 @@ export const loginStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginPage = (
-    {
-      currentUser={},
-      login
-    }
-) => {
+const LoginPage = ({
+                     currentUser={
+                       username:"not logged in"
+                     },
+                     login
+                   }) => {
   const classes = loginStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("123");
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className="h1">
-          {currentUser}
-        </div>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LocalMovies />
           </Avatar>
+          <h1>
+            {currentUser.username}
+          </h1>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
                 variant="outlined"
-                margin="normal"
                 required
                 fullWidth
-                id="userName"
-                label="User Name"
-                name="userName"
-                //autoComplete="email"
-                inputRef={userField}
-                autoFocus
+                id="name"
+                label="name"
+                name="name"
+                inputRef={userRef}
+                autoComplete="lname"
             />
             <TextField
                 variant="outlined"
-                margin="normal"
                 required
                 fullWidth
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
                 inputRef={pwdRef}
+                autoComplete="current-password"
             />
             <Button
-                href="/profile/1"
+                //href="/profile/1"
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -102,7 +101,7 @@ const LoginPage = (
                 onClick={() => {
                   let userName=userRef.current.value
                   let password=pwdRef.current.value
-
+                  login(userName, password)
                 }}
             >
               Sign In

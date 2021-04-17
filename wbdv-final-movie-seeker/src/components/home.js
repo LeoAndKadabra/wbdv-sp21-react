@@ -1,16 +1,5 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import UserReducer from '../reducers/user-reducer'
-import {combineReducers, createStore} from "redux";
-import {Provider} from "react-redux";
-
-const reducer = combineReducers({
-    userReducer: UserReducer
-})
-
-// const store = createStore(moduleReducer)
-// const store = createStore(lessonReducer)
-const store = createStore(reducer)
 
 const Home = () => {
     return(

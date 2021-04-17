@@ -7,7 +7,7 @@ import SignupPage from "./components/User/signup-page";
 import {BrowserRouter, Route} from "react-router-dom";
 import React from 'react'
 
-function App() {
+const App = () => {
   return (
       <div className="container">
         <BrowserRouter>

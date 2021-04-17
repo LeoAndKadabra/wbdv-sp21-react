@@ -6,10 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
+import UserReducer from './reducers/user-reducer'
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+
+const reducer = combineReducers({
+    userReducer: UserReducer
+})
+
+const store = createStore(reducer)
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
   document.getElementById('root')
 );
 
