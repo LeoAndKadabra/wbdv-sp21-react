@@ -10,15 +10,18 @@ const getUserByCredential = (dispatch, userName, pwd) => { // Use this for login
                 type: "FIND_USER",
                 currentUser: user
             })
+            console.log("currentUser:", user)
         })
 }
 
 const updateUser = (user, dispatch) => { // Use this for user update
     UserService.updateUser(user)
-        .then(status => dispatch({
+        .then(status => {
+            dispatch({
             type: "UPDATE_USER",
             currentUser: user
-        }))
+        })
+    })
 }
 
 const clearCurrentUser = (user, dispatch) => {// User this for logout

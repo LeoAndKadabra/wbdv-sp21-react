@@ -9,13 +9,13 @@ import Box from '@material-ui/core/Box';
 import AddToQueue from '@material-ui/icons/AddToQueue';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import {loginStyles} from './login-page';
+import {userPageStyles} from './login-page';
 
 import userService from '../../services/user-service'
 
 
 export default function SignUpPage() {
-  const classes = loginStyles();
+  const classes = userPageStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
@@ -89,11 +89,9 @@ export default function SignUpPage() {
                 color="primary"
                 className={classes.submit}
                 onClick={() => {
-                    let userName=userRef.current.value
-                    let password=pwdRef.current.value
                     userService.register({
-                        username: userName,
-                        password: password,
+                        username: userRef.current.value,
+                        password: pwdRef.current.value,
                         address:  addrRef.current.value,
                         email: emailRef.current.value,
                     }).then(

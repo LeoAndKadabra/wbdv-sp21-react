@@ -13,7 +13,9 @@ const UserReducer = (state=initialState, action) => {
             }
         case "DELETE_USER": // delete current user / logout
             const newState1 = {
-                currentUser: {}
+                currentUser: {
+                    username:"not logged in"
+                }
             }
             return newState1
         case "UPDATE_USER": // update user

@@ -10,12 +10,12 @@ import LocalMovies from '@material-ui/icons/LocalMovies';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import userService from "../../services/user-service";
+import { useHistory } from "react-router-dom";
 
 import {connect} from 'react-redux'
 import userAction from '../../actions/user-action'
 
-export const loginStyles = makeStyles((theme) => ({
+export const userPageStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
@@ -46,15 +46,28 @@ export const loginStyles = makeStyles((theme) => ({
   },
 }));
 
+const notLoggedInUserName = "please log in";
+
 const LoginPage = ({
                      currentUser={
-                       username:"Please log in"
+                       username:notLoggedInUserName
                      },
                      login
                    }) => {
-  const classes = loginStyles();
+  const classes = userPageStyles();
   const userRef = useRef("user");
-  const pwdRef = useRef("123");
+  const pwdRef = useRef("pwd");
+  const history = useHistory()
+
+  function onClickLogin() {
+    let userName=userRef.current.value;
+    let password=pwdRef.current.value;
+    login(userName, password);
+    const profilePath = '/profile/' + currentUser.username;
+    if(currentUser.username !== notLoggedInUserName){
+      history.push(profilePath);
+    }
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -92,17 +105,11 @@ const LoginPage = ({
                 autoComplete="current-password"
             />
             <Button
-                //href="/profile/1"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={() => {
-                  let userName=userRef.current.value
-                  let password=pwdRef.current.value
-                  login(userName, password)
-                  console.log("currentUser:", currentUser)
-                }}
+                onClick={() => onClickLogin()}
             >
               Sign In
             </Button>
