@@ -4,7 +4,7 @@ const MovieDetail = ({movie, history}) => {
     console.log(JSON.stringify(movie))
     return(
         <>
-            <div class="row p-2">
+            <div className="row p-2">
                 <div className="col">
                     <h2 className="m-2">
                         <i

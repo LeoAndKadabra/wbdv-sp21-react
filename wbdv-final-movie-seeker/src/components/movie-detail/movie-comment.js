@@ -1,31 +1,34 @@
 import React from 'react'
 import Comment from '../../models/comment'
 import Rating from '@material-ui/lab/Rating';
+import {Avatar, Button, Grid} from "@material-ui/core";
+import {teal, blue} from '@material-ui/core/colors'
 
-const MovieComment = (comments) => {
+
+const MovieComment = ({comment}) => {
     return(
-        <div>
-            <table className="table">
-                <head>
-                <tr className="border-3">
-                    <th className="wbdv-table-width-title">User</th>
-                    <th className="wbdv-table-width-other d-none d-sm-table-cell">Comment</th>
-                    <th className="wbdv-table-width-other d-none d-md-table-cell">Rating</th>
-                </tr>
-                </head>
-
-                <body>
-                {
-                    comments.map(comment =>
-                        <tr>
-                            <td>{comment.user}</td>
-                            <td>{comment.content}</td>
-                            <td><Rating name="read-only" value={comment.rating} readOnly /></td>
-                        </tr>)
-                }
-                </body>
-            </table>
-        </div>
+        <Grid container wrap="nowrap" spacing={2}>
+            <Grid item>
+            <Avatar alt="Remy Sharp" src={"https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"} />
+            </Grid>
+            <Grid justifyContent="left" item xs zeroMinWidth>
+                <h4 style={{ margin: 0, textAlign: "left" }}>UserName</h4>
+                <p style={{ textAlign: "left" }}>
+                    Comment content: {comment.content}
+                </p>
+                <p style={{ textAlign: "left", color: "gray" }}>
+                    posted 1 minute ago
+                </p>
+            </Grid>
+            <Grid>
+                <Button variant="contained" color="teal" className="float-right">
+                    Update
+                </Button>
+                <Button variant="contained" color="secondary" className="float-right">
+                    Delete
+                </Button>
+            </Grid>
+        </Grid>
     )
 }
 

@@ -33,7 +33,6 @@ const ProfilePage = ({
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
 
-
   function onClickUpdate() {
     let updatedUser= {
       username: userRef.current.value,
@@ -57,6 +56,14 @@ const ProfilePage = ({
               <Avatar className={classes.avatar}>
                 <Face />
               </Avatar>
+              <p>
+                {
+                  JSON.stringify(currentUser)
+                }
+                </p>
+              <a href="/search">
+                 Search Movie
+              </a>
               <Typography component="h1" variant="h5">
                 {currentUser.username}'s Profile
               </Typography>

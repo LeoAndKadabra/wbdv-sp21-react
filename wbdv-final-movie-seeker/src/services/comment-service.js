@@ -3,31 +3,38 @@ import Comment from '../models/comment'
 
 const COMMENTS_STORAGE_KEY = "COMMENTS";
 
+export let commentList = [
+  {
+    content: "test1",
+    movieId: "tt0103776"
+  },
+  {
+    content: "test2",
+    movieId: "tt0103776"
+  }
+]
+
+// TODO: use Comment Service
+export const getAllComments = () =>{
+  return Promise.resolve(commentList)
+};
+
+export const createComment = (comments, comment) => {
+  const commentList = comments;
+  commentList.push(comment)
+  return Promise.resolve(commentList)
+};
+
+export const getAllCommentsForMovie = (movieId) =>{
+  const commentList = getAllComments();
+  return commentList
+      //.then(comments => comments.filter( (c) => c.movieId === movieId))
+};
 
 // TODO: use Database in next iterations
-export const getAllComments = () =>{
-  const itemJson = localStorage.getItem(COMMENTS_STORAGE_KEY);
-  if(itemJson){
-    return JSON.parse(itemJson);
-  }
-  else return []
-};
-
-export const createComment = (comment) => {
-  const commentList = getAllComments();
-  commentList.push(comment)
-  localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(commentList))
-};
-
-export const getAllCommentsForMovie = (username) =>{
+export const getAllCommentsForUser = (username) =>{
   const commentList = getAllComments();
   return commentList.filter( (c) => c.user === username)
-};
-
-// TODO: use Database in next iterations
-export const getAllCommentsForUser = (movieName) =>{
-  const commentList = getAllComments();
-  return commentList.filter( (c) => c.movie === movieName)
 };
 
 
