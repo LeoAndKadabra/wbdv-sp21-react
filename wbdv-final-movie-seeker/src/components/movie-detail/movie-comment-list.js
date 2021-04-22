@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
 import Comment from "./movie-comment";
 import CommentService from "../../services/comment-service"
+import SimpleRating from "../../components/movie-detail/movie-rating"
 import userService, {getCurrentUser} from "../../services/user-service";
 import { Button, Paper } from "@material-ui/core";
 import UserService from "../../services/user-service";
@@ -13,15 +14,20 @@ const MovieCommentList = (
     const [comments, setComments] = useState([])
     const [currentUser, setCurrentUser] = useState({})
     const [cachedComment, setCachedComment] = useState("new comment")
+    const [rating, setRating] = useState()
 
     const createComment = () => {
         // Send create request to Service, then set comment list
-        CommentService.createComment(comments, {
+        CommentService.createComment({
             username: currentUser.username,
             content: cachedComment,
-            movieId: movieId
+            movieId: movieId,
+            rating: rating
         })
-            .then(newComments => setComments(newComments))
+            .then(newComments => {
+                console.log(newComments)
+                comments.push(newComments)
+                setComments(comments)})
     }
 
     useEffect(() => {
@@ -64,10 +70,17 @@ const MovieCommentList = (
                     value={cachedComment}
                     rows={5}
                     className="form-control col-9"></textarea>
-                <div className="col-3 align-content-center">
-                    <Button variant="contained" color="primary" className="float-right">
-                        Submit
-                    </Button>
+                <div className="col-3">
+                    <div className="float-right">
+                        <SimpleRating setRating={setRating}/>
+                    </div>
+                    <div className="align-content-center">
+                        <Button
+                            onClick={console.log(rating)}
+                            variant="contained" color="primary" className="float-right">
+                            Submit
+                        </Button>
+                    </div>
                 </div>
             </div>
         </>)
