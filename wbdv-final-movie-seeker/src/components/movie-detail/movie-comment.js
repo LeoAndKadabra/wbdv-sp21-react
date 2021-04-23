@@ -12,12 +12,12 @@ const MovieComment = ({comment}) => {
             <Avatar alt="Remy Sharp" src={"https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"} />
             </Grid>
             <Grid justifyContent="left" item xs zeroMinWidth>
-                <h4 style={{ margin: 0, textAlign: "left" }}>UserName</h4>
+                <h4 style={{ margin: 0, textAlign: "left" }}>{comment.username}</h4>
                 <p style={{ textAlign: "left" }}>
-                    Comment content: {comment.content}
+                    {comment.content}
                 </p>
                 <p style={{ textAlign: "left", color: "gray" }}>
-                    posted 1 minute ago
+                    posted at {comment.createdTime}
                 </p>
             </Grid>
             <Grid>

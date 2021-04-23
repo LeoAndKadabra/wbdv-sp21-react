@@ -17,6 +17,9 @@ const MovieCommentList = (
     const [rating, setRating] = useState()
 
     const createComment = () => {
+        if (!currentUser) {
+            alert("Please login to create comment!")
+        }
         // Send create request to Service, then set comment list
         CommentService.createComment({
             username: currentUser.username,
@@ -24,10 +27,12 @@ const MovieCommentList = (
             movieId: movieId,
             rating: rating
         })
-            .then(newComments => {
-                console.log(newComments)
-                comments.push(newComments)
-                setComments(comments)})
+            .then(newComment => {
+                console.log(newComment)
+                setComments([
+                    ...comments,
+                    newComment
+                ])})
     }
 
     useEffect(() => {
@@ -76,7 +81,7 @@ const MovieCommentList = (
                     </div>
                     <div className="align-content-center">
                         <Button
-                            onClick={console.log(rating)}
+                            onClick={() => createComment()}
                             variant="contained" color="primary" className="float-right">
                             Submit
                         </Button>
