@@ -24,6 +24,9 @@ const App = () => {
         <Route path={["/profile", "/profile/:userId"]} exact={true}>
             <ProfilePage/>
         </Route>
+          <Route path="/profile" exact={true}>
+            <ProfilePage/>
+          </Route>
         <Route path="/login" exact={true}>
             <LoginPage/>
         </Route>

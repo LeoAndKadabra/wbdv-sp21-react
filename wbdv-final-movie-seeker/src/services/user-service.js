@@ -70,7 +70,7 @@ const UserService = {
   logout,
   updateUser,
   deleteUser,
-    getCurrentUser
+  getCurrentUser
 };
 
 export default UserService;

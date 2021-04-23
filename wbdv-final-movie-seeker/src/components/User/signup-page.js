@@ -12,9 +12,10 @@ import Container from '@material-ui/core/Container';
 import {userPageStyles} from './login-page';
 
 import userService from '../../services/user-service'
-
+import { useHistory } from "react-router-dom";
 
 export default function SignUpPage() {
+  const history = useHistory()
   const classes = userPageStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("pwd");
@@ -97,6 +98,7 @@ export default function SignUpPage() {
                     }).then(
                         user => console.log(user)
                     )
+                  history.push("/login");
                 }}
             >
               Sign Up
