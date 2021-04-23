@@ -4,49 +4,62 @@ import Comment from '../models/comment'
 const COMMENTS_STORAGE_KEY = "COMMENTS";
 
 export let commentList = [
-  {
-    content: "test1",
-    movieId: "tt0103776"
-  },
-  {
-    content: "test2",
-    movieId: "tt0103776"
-  }
+  // {
+  //   content: "test1",
+  //   movieId: "tt0103776"
+  // },
+  // {
+  //   content: "test2",
+  //   movieId: "tt0103776"
+  // }
 ]
 
-// TODO: use Comment Service
+const COMMENT_URL = "http://localhost:8080/comments";
+
+// TODO: Do we need this?
 export const getAllComments = () =>{
-  return Promise.resolve(commentList)
 };
 
-export const createComment = (comments, comment) => {
-  const commentList = comments;
-  commentList.push(comment)
-  return Promise.resolve(commentList)
+export const createComment = (comment) => {
+  return fetch(`${COMMENT_URL}`, {
+    method: 'POST',
+    body: JSON.stringify(comment),
+    headers: {
+      'content-type': 'application/json'
+    },
+    credentials: "include"
+  })
+  .then(
+      response => response.json()
+  )
 };
 
-export const getAllCommentsForMovie = (movieId) =>{
-  const commentList = getAllComments();
-  return commentList
-      //.then(comments => comments.filter( (c) => c.movieId === movieId))
-};
+export const getAllCommentsForMovie = (movieId) =>
+  fetch(`${COMMENT_URL}?movieId=${movieId}`)
+  .then(response => response.json())
 
-// TODO: use Database in next iterations
 export const getAllCommentsForUser = (username) =>{
-  const commentList = getAllComments();
-  return commentList.filter( (c) => c.user === username)
+  return fetch(`${COMMENT_URL}?username=${username}`, {
+    credentials: "include"
+  })
+  .then(response => response.json());
 };
-
 
 export const deleteComment = (commentId) => {
-  const commentList = getAllComments();
-  const updatedCommentList = commentList.filter(comment => comment.id !== commentId)
-  localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(updatedCommentList))
+  return fetch(`${COMMENT_URL}`, {
+    method: 'DELETE',
+    credentials: "include",
+    body: JSON.stringify(commentId),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(response => response.json());
 };
 
-export const updateComment= (commentId, comment) => {
+export const updateComment= (commentId, NewComment) => {
   deleteComment(commentId);
-  createComment(comment)
+  createComment(NewComment)
 };
 
 export default {
