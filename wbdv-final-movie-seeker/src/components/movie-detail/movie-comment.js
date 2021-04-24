@@ -7,6 +7,7 @@ import {teal, blue} from '@material-ui/core/colors'
 
 const MovieComment =
     ({
+        currentUser,
         comment,
         deleteComment
     }) => {
@@ -25,19 +26,19 @@ const MovieComment =
                 </p>
             </Grid>
             <Grid>
-                <Button
+                {/*<Button
                     variant="contained"
                     color="teal"
                     className="float-right">
                     Update
-                </Button>
-                <Button
+                </Button>*/}
+                {currentUser.username === comment.username && <Button
                     variant="contained"
                     color="secondary"
                     className="float-right"
                     onClick={() => deleteComment(comment)}>
                     Delete
-                </Button>
+                </Button>}
             </Grid>
         </Grid>
     )

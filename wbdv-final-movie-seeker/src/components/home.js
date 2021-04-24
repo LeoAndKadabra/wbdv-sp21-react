@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,8 +14,19 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import CommentService from "../services/comment-service";
+import UserService from "../services/user-service";
 
 const Home = () => {
+    const [currentUser, setCurrentUser] = useState({
+        username: null
+    })
+
+    useEffect(() => {
+        UserService.getCurrentUser()
+            .then(user => setCurrentUser(user))
+    }, [])
+
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -47,14 +58,23 @@ const Home = () => {
                             color="inherit">
                             <SearchIcon /> Search Movie
                         </IconButton>
-                        <Button
-                            href="/login"
-                            color="inherit"
-                            style={{ fontSize: '19px' }}>Login</Button>
-                        <Button
-                            href="/register"
-                            color="inherit"
-                            style={{ fontSize: '19px' }}>Register</Button>
+                        {
+                            !(currentUser.username) && <Grid item>
+                                <Button
+                                    href="/login"
+                                    color="inherit"
+                                    style={{fontSize: '19px'}}>Login</Button>
+                                <Button
+                                href="/register"
+                                color="inherit"
+                                style={{fontSize: '19px'}}>Register</Button>
+                            </Grid>
+                        }
+                        {
+                            currentUser.username && <Typography variant="h6" style={{ flex: 1 }} className={useStyles.title}>
+                                <Link to="/profile">{currentUser.username}</Link>
+                            </Typography>
+                        }
                     </Toolbar>
                 </AppBar>
             </Grid>
