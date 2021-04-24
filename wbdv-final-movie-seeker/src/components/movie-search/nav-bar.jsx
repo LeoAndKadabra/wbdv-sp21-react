@@ -4,6 +4,8 @@ import SearchBar from 'material-ui-search-bar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import appStore from './app-store';
 import RollDice from "./roll-dice";
+import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 
 // this is re-rendered whenever the relevant parts of the used data stores change
 const NavBar = () => (
@@ -14,6 +16,12 @@ const NavBar = () => (
           autoFocus
       />
       {appStore.isLoading && <LinearProgress />}
+      <Link href="/">
+        <Button  color="secondary"
+            className="btn btn-primary">
+          <i className="fas fa-home fa-2x"></i>
+        </Button>
+      </Link>
       <RollDice/>
     </div>
 );

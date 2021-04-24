@@ -47,3 +47,18 @@ body {
 .movie li {
   margin-top: 8px;
 }
+
+.detailcard {
+  background-image: url("https://www.ucdavis.edu/sites/default/files/styles/sf_title_banner/public/media/images/film-studies-major-uc-davis.jpg?h=8e58fdb5&itok=VCHUmo_W");
+}
+
+.image {
+  width: 310px;
+  height: 200px;
+}
+
+.spacing {
+  padding-top: 20px;
+  padding-left: 70px;
+  align-content: center;
+}
