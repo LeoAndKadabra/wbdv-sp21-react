@@ -5,7 +5,11 @@ import {Avatar, Button, Grid} from "@material-ui/core";
 import {teal, blue} from '@material-ui/core/colors'
 
 
-const MovieComment = ({comment}) => {
+const MovieComment =
+    ({
+        comment,
+        deleteComment
+    }) => {
     return(
         <Grid container wrap="nowrap" spacing={2}>
             <Grid item>
@@ -21,10 +25,17 @@ const MovieComment = ({comment}) => {
                 </p>
             </Grid>
             <Grid>
-                <Button variant="contained" color="teal" className="float-right">
+                <Button
+                    variant="contained"
+                    color="teal"
+                    className="float-right">
                     Update
                 </Button>
-                <Button variant="contained" color="secondary" className="float-right">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className="float-right"
+                    onClick={() => deleteComment(comment)}>
                     Delete
                 </Button>
             </Grid>
