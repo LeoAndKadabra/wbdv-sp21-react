@@ -16,9 +16,9 @@ export let commentList = [
 
 const COMMENT_URL = "http://localhost:8080/comments";
 
-// TODO: Do we need this?
-export const getLatest3Comments = () =>{
-
+export const getLatestSeveralComments = (limit) => {
+  return fetch(`${COMMENT_URL}?limit=${limit}`)
+  .then(response => response.json());
 };
 
 export const createComment = (comment) => {
@@ -45,7 +45,7 @@ export const getLatest3CommentsForMovie = (movieId) =>
     fetch(`${COMMENT_URL}?movieId=${movieId}`, {
       credentials: "include"
     })
-        .then(response => response.json()).then(comments => comments.slice(-3))
+    .then(response => response.json()).then(comments => comments.slice(-3))
 
 export const getAllCommentsForUser = (username) =>{
   return fetch(`${COMMENT_URL}?username=${username}`, {
