@@ -2,7 +2,7 @@ import React from 'react'
 import Comment from '../../models/comment'
 import Rating from '@material-ui/lab/Rating';
 import {Avatar, Button, Grid} from "@material-ui/core";
-import {teal, blue} from '@material-ui/core/colors'
+import {Link} from "react-router-dom";
 
 
 const MovieComment =
@@ -17,7 +17,14 @@ const MovieComment =
             <Avatar alt="Remy Sharp" src={"https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"} />
             </Grid>
             <Grid justifyContent="left" item xs zeroMinWidth>
-                <h4 style={{ margin: 0, textAlign: "left" }}>{comment.username}</h4>
+                <h4 style={{ margin: 0, textAlign: "left" }}>
+                    {   currentUser.username !== "" &&
+                            <Link to={`/profile/${comment.username}`}>{comment.username}</Link>
+                    }
+                    {   currentUser.username === "" &&
+                            <p>{comment.username}</p>
+                    }
+                </h4>
                 <p style={{ textAlign: "left" }}>
                     {comment.content}
                 </p>
