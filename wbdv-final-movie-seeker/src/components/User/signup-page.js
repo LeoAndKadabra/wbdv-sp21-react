@@ -10,6 +10,10 @@ import AddToQueue from '@material-ui/icons/AddToQueue';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {userPageStyles} from './login-page';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import userService from '../../services/user-service'
 import { useHistory } from "react-router-dom";
@@ -21,6 +25,15 @@ export default function SignUpPage() {
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
+
+  const [adminState, setAdminState] = React.useState({
+    isAdmin: false,
+  });
+
+  const handleChange = (event) => {
+    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+  };
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -84,20 +97,33 @@ export default function SignUpPage() {
                 />
               </Grid>
             </Grid>
+            <Grid>
+              <FormControl component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                      control={<Switch checked={adminState.isAdmin} onChange={handleChange} name="isAdmin" />}
+                      label="Create as Admin User"
+                  />
+                </FormGroup>
+
+              </FormControl>
+            </Grid>
             <Button
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
                 onClick={() => {
+                  console.log("registered admin state: ", adminState)
                     userService.register({
                         username: userRef.current.value,
                         password: pwdRef.current.value,
                         address:  addrRef.current.value,
                         email: emailRef.current.value,
+                        isAdmin: adminState,
                     }).then(
-                        user => console.log(user)
-                    )
+                        user => console.log("registeredUser: ", user)
+                    );
                   history.push("/login");
                 }}
             >
