@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from "react-router-dom";
 import Comment from "./movie-comment";
-import CommentService from "../../services/comment-service"
+import CommentService, {updateComment} from "../../services/comment-service"
 import SimpleRating from "../../components/movie-detail/movie-rating"
 import userService, {getCurrentUser} from "../../services/user-service";
 import { Button, Paper } from "@material-ui/core";
@@ -35,6 +35,13 @@ const MovieCommentList = (
                 ])})
     }
 
+    const deleteComment = (commentToDel) => {
+        CommentService.deleteComment(commentToDel._id)
+            .then(status => {
+                console.log(status)
+                setComments(comments.filter(curComment => curComment._id!== commentToDel._id))})
+    }
+
     useEffect(() => {
         // get comments from server
         CommentService.getAllCommentsForMovie(movieId)
@@ -62,6 +69,7 @@ const MovieCommentList = (
                         comments.map((comment, idx) =>
                         <Comment
                             comment={comment}
+                            deleteComment={deleteComment}
                             key={idx}
                         />
                         )

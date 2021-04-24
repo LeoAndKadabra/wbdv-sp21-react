@@ -17,7 +17,8 @@ export let commentList = [
 const COMMENT_URL = "http://localhost:8080/comments";
 
 // TODO: Do we need this?
-export const getAllComments = () =>{
+export const getLatest3Comments = () =>{
+
 };
 
 export const createComment = (comment) => {
@@ -35,8 +36,16 @@ export const createComment = (comment) => {
 };
 
 export const getAllCommentsForMovie = (movieId) =>
-  fetch(`${COMMENT_URL}?movieId=${movieId}`)
+  fetch(`${COMMENT_URL}?movieId=${movieId}`, {
+    credentials: "include"
+  })
   .then(response => response.json())
+
+export const getLatest3CommentsForMovie = (movieId) =>
+    fetch(`${COMMENT_URL}?movieId=${movieId}`, {
+      credentials: "include"
+    })
+        .then(response => response.json()).then(comments => comments.slice(-3))
 
 export const getAllCommentsForUser = (username) =>{
   return fetch(`${COMMENT_URL}?username=${username}`, {
@@ -45,11 +54,22 @@ export const getAllCommentsForUser = (username) =>{
   .then(response => response.json());
 };
 
+export const getLatest3CommentsForUser = (username) =>{
+  return fetch(`${COMMENT_URL}?username=${username}`, {
+    credentials: "include"
+  })
+      .then(response => response.json()).then(comments => comments.slice(-3))
+};
+
 export const deleteComment = (commentId) => {
   return fetch(`${COMMENT_URL}`, {
     method: 'DELETE',
     credentials: "include",
-    body: JSON.stringify(commentId),
+    body: JSON.stringify(
+        {
+          _id: commentId
+        }
+    ),
     headers: {
       'content-type': 'application/json'
     }
@@ -64,7 +84,9 @@ export const updateComment= (commentId, NewComment) => {
 
 export default {
   createComment,
-  getAllComments,
+  //getAllComments,
+  getLatest3CommentsForUser,
+  getLatest3CommentsForMovie,
   getAllCommentsForMovie,
   getAllCommentsForUser,
   deleteComment,
