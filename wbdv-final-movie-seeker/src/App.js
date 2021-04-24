@@ -1,4 +1,4 @@
-import SearchPage from "./components/movie-search/search-page"
+import {SearchPage} from "./components/movie-search/search-page.jsx"
 import DetailPage from "./components/movie-detail/detail-page"
 import Home from "./components/home";
 import ProfilePage from "./components/User/profile-page";
