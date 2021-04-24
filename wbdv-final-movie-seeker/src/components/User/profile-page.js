@@ -56,11 +56,9 @@ const ProfilePage = ({
               <Avatar className={classes.avatar}>
                 <Face />
               </Avatar>
-              <p>
-                {
-                  JSON.stringify(currentUser)
-                }
-                </p>
+              <Link href="/">
+                Home
+              </Link>
               <a href="/search">
                  Search Movie
               </a>

@@ -84,7 +84,7 @@ export const updateComment= (commentId, NewComment) => {
 
 export default {
   createComment,
-  //getAllComments,
+  getLatestSeveralComments,
   getLatest3CommentsForUser,
   getLatest3CommentsForMovie,
   getAllCommentsForMovie,
