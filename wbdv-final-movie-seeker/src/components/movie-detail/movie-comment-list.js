@@ -69,6 +69,7 @@ const MovieCommentList = (
                         comments.map((comment, idx) =>
                         <Comment
                             comment={comment}
+                            currentUser={currentUser}
                             deleteComment={deleteComment}
                             key={idx}
                         />
