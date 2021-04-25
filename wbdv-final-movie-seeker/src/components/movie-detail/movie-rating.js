@@ -4,13 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CommentService from "../../services/comment-service";
 
-export default function SimpleRating(props) {
+export default function SimpleRating({setRating}) {
   const [value, setValue] = React.useState(2);
-
-  useEffect(() => {
-    // props.onChange(value)
-    props.setRating(value)
-  }, [value])
 
   return (
       <div>
@@ -20,7 +15,8 @@ export default function SimpleRating(props) {
               name="simple-controlled"
               value={value}
               onChange={(event, newValue) => {
-                setValue(newValue);
+                  setValue(newValue)
+                  setRating(newValue)
               }}
           />
         </Box>
