@@ -4,7 +4,8 @@ import { Button, Paper } from "@material-ui/core";
 
 const CommentList = (
     {
-        comments
+        comments,
+        currentUser
     }) => {
 
     return(
@@ -16,7 +17,7 @@ const CommentList = (
                         <Comment
                             comment={comment}
                             key={idx}
-                            currentUser={{username: null}}
+                            currentUser={currentUser}
                         />
                     )
                 }
