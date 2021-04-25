@@ -48,7 +48,7 @@ export const getOtherUser = (username) =>
     .then(response =>
     {
       let other = response.json()
-      console.log("get current user from server: " + currentUer)
+      console.log("get other user from server: " + currentUer)
       return other
     });
 
