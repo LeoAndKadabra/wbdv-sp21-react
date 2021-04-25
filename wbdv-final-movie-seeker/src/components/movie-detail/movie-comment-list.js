@@ -17,8 +17,9 @@ const MovieCommentList = (
     const [rating, setRating] = useState()
 
     const createComment = () => {
-        if (!currentUser) {
+        if (!currentUser || currentUser.username === "") {
             alert("Please login to create comment!")
+            return
         }
         // Send create request to Service, then set comment list
         CommentService.createComment({
@@ -59,7 +60,7 @@ const MovieCommentList = (
         <>
             <div className="row p-3">
                 <div className="col">
-                    CurrentUser: {currentUser.username}
+                    You are logged in as: {currentUser.username}
                 </div>
             </div>
 

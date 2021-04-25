@@ -34,7 +34,12 @@ export const getCurrentUser = () =>
     fetch(`${USER_URL}/profile`, {
         credentials: "include"
     })
-        .then(response => response.json());
+        .then(response =>
+        {
+            let currentUer = response.json()
+            console.log("get current user from server: " + currentUer)
+            return currentUer
+        });
 
 export const logout = () =>
     fetch(`${USER_URL}/logout`, {

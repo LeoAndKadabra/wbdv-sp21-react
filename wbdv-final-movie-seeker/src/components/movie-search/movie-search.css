@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.searchbar {
+  position: fixed;
+  top: 10px;
+  left: 3%;
+  right: 3%;
+}
+
+.movielist {
+  margin: 10px;
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movie {
+  width: 100%;
+  max-width: 340px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.movie .media {
+  height: 180px;
+  background-position: center 80%;
+  background-size: 102%;
+  background-color: rgb(180, 100, 0);
+}
+
+.movie h3 {
+  text-align: center;
+}
+
+.movie ul {
+  list-style-type: decimal;
+  padding: 0 30px;
+}
+
+.movie li {
+  margin-top: 8px;
+}
+
+.detailcard {
+  background-image: url("https://www.ucdavis.edu/sites/default/files/styles/sf_title_banner/public/media/images/film-studies-major-uc-davis.jpg?h=8e58fdb5&itok=VCHUmo_W");
+}
+
+.image {
+  width: 310px;
+  height: 200px;
+}
+
+.spacing {
+  padding-top: 20px;
+  padding-left: 70px;
+  align-content: center;
+}

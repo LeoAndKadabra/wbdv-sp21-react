@@ -14,17 +14,31 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import CommentService from "../services/comment-service";
+import CommentService, {getLatestSeveralComments} from "../services/comment-service";
 import UserService from "../services/user-service";
+import CommentList from "./general-comment/comment-list";
 
 const Home = () => {
     const [currentUser, setCurrentUser] = useState({
-        username: null
+        username: ""
     })
+
+    const [comments, setComments] = useState([])
 
     useEffect(() => {
         UserService.getCurrentUser()
-            .then(user => setCurrentUser(user))
+            .then(user => {
+                setCurrentUser(user)
+                return user
+            })
+            .then((user) => {
+                if (user.username !== "")
+                    CommentService.getLatest3CommentsForUser(user.username)
+                        .then(comments => setComments(comments))
+                else
+                    CommentService.getLatestSeveralComments(5)
+                        .then(comments => setComments(comments))
+        })
     }, [])
 
     const useStyles = makeStyles((theme) => ({
@@ -59,7 +73,7 @@ const Home = () => {
                             <SearchIcon /> Search Movie
                         </IconButton>
                         {
-                            !(currentUser.username) && <Grid item>
+                            currentUser.username === "" && <Grid item>
                                 <Button
                                     href="/login"
                                     color="inherit"
@@ -143,6 +157,9 @@ const Home = () => {
                         </Card>
                     </Link>
                 </Grid>
+            </Grid>
+            <Grid item xs={12} spacing={3}>
+                <CommentList comments={comments}/>
             </Grid>
         </Grid>
     )

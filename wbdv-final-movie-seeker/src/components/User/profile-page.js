@@ -56,6 +56,9 @@ const ProfilePage = ({
               <Avatar className={classes.avatar}>
                 <Face />
               </Avatar>
+              <Link href="/">
+                Home
+              </Link>
               <a href="/search">
                  Search Movie
               </a>
