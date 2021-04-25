@@ -65,28 +65,28 @@ const Home = () => {
                         <Typography variant="h6" style={{ flex: 1 }} className={useStyles.title}>
                             Welcome to Movie Seeker
                         </Typography>
-                        <IconButton
-                            href="/search"
+                        <Link
+                            to="/search"
                             style={{ fontSize: '19px' }}
-                            className={useStyles.menuButton}
-                            color="inherit">
+                            className="text-white p-2">
                             <SearchIcon /> Search Movie
-                        </IconButton>
+                        </Link>
                         {
                             currentUser.username === "" && <Grid item>
-                                <Button
-                                    href="/login"
-                                    color="inherit"
-                                    style={{fontSize: '19px'}}>Login</Button>
-                                <Button
-                                href="/register"
-                                color="inherit"
-                                style={{fontSize: '19px'}}>Register</Button>
+                                <Link
+                                    to="/login"
+                                    style={{ fontSize: '19px' }}
+                                    className="text-white p-2">Login</Link>
+                                <Link
+                                    to="/register"
+                                    style={{ fontSize: '19px' }}
+                                    className="text-white p-2">Register</Link>
                             </Grid>
                         }
                         {
-                            currentUser.username && <Typography variant="h6" style={{ flex: 1 }} className={useStyles.title}>
-                                <Link to="/profile">{currentUser.username}</Link>
+                            currentUser.username &&
+                            <Typography variant="h6" color="inherit" className={useStyles.title}>
+                                <Link to="/profile" className="text-white p-2">{currentUser.username}</Link>
                             </Typography>
                         }
                     </Toolbar>
@@ -159,7 +159,7 @@ const Home = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12} spacing={3}>
-                <CommentList comments={comments}/>
+                <CommentList comments={comments} currentUser={currentUser}/>
             </Grid>
         </Grid>
     )
