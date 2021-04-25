@@ -18,6 +18,7 @@ const CommentList = (
                             comment={comment}
                             key={idx}
                             currentUser={currentUser}
+                            turnOnMovieLink={true}
                         />
                     )
                 }
