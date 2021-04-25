@@ -11,23 +11,32 @@ import AddToQueue from '@material-ui/icons/AddToQueue';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {userPageStyles} from './login-page';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import userService from '../../services/user-service'
-
+import { useHistory } from "react-router-dom";
 
 export default function SignUpPage() {
+  const history = useHistory()
   const classes = userPageStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
+
+  const [adminState, setAdminState] = React.useState({
+    isAdmin: false,
+  });
+
+  const handleChange = (event) => {
+    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+  };
+
   const favMovieRef = useRef("");
   const favGenreRef = useRef("");
   const imageRef = useRef("");
-
-  const [role, setRole] = useState('user');
-  const changeRole = (event) => {
-    setRole(event.target.value);
-  };
 
   const [gender, setGender] = useState("female");
   const changeGender = (event) => {
@@ -162,27 +171,17 @@ export default function SignUpPage() {
                     inputRef={imageRef}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <label>
-                  <Radio
-                      checked={role === 'user'}
-                      onChange={changeRole}
-                      value="user"
-                      name="radio-button-admin"
-                      lable="User"
+            </Grid>
+            <Grid>
+              <FormControl component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                      control={<Switch checked={adminState.isAdmin} onChange={handleChange} name="isAdmin" />}
+                      label="Create as Admin User"
                   />
-                  User
-                </label>
-                <label>
-                  <Radio
-                      checked={role === 'admin'}
-                      onChange={changeRole}
-                      value="admin"
-                      name="radio-button-admin"
-                  />
-                  Admin
-                </label>
-              </Grid>
+                </FormGroup>
+
+              </FormControl>
             </Grid>
             <Button
                 fullWidth
@@ -190,19 +189,21 @@ export default function SignUpPage() {
                 color="primary"
                 className={classes.submit}
                 onClick={() => {
+                  console.log("registered admin state: ", adminState)
                     userService.register({
                         username: userRef.current.value,
                         password: pwdRef.current.value,
                         address:  addrRef.current.value,
                         email: emailRef.current.value,
-                        role: role,
+                        isAdmin: adminState,
                         gender: gender,
                         favMovie: favMovieRef.current.value,
                         favGenre: favGenreRef.current.value,
                         image: imageRef.current.value
                     }).then(
-                        user => console.log(user)
-                    )
+                        user => console.log("registeredUser: ", user)
+                    );
+                  history.push("/login");
                 }}
             >
               Sign Up
