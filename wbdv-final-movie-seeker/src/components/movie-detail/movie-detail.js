@@ -1,23 +1,15 @@
 import React from 'react'
+import TopBar from "../top-bar";
+import Grid from "@material-ui/core/Grid";
 
-const MovieDetail = ({movie, history}) => {
+const MovieDetail = ({movie, history, currentUser}) => {
     console.log(JSON.stringify(movie))
+    const headingText= movie.Title
     return(
         <>
-            <div className="row p-2">
-                <div className="col">
-                    <h2 className="m-2">
-                        <i
-                            className="fas fa-times text-dark"
-                            onClick={()=>{history.goBack()}}>
-                        </i>
-                        <span className="ml-2">
-                            {movie.Title}
-                        </span>
-                        <span className="text-muted m-1">({movie.Year})</span>
-                    </h2>
-                </div>
-            </div>
+            <Grid item xs={12}>
+                <TopBar headingText={headingText} currentUser={currentUser} />
+            </Grid>
             <div className="row p-2">
                 <div className="col-4">
                     <div className="row text-center">

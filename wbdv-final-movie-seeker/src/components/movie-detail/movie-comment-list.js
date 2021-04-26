@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom";
 import Comment from "./movie-comment";
 import CommentService, {updateComment} from "../../services/comment-service"
 import SimpleRating from "../../components/movie-detail/movie-rating"
 import { Button, Paper } from "@material-ui/core";
-import UserService from "../../services/user-service";
 import Grid from "@material-ui/core/Grid";
 
 const MovieCommentList = (
     {
-        movieId
+        movieId,
+        currentUser
     }) => {
     const [comments, setComments] = useState([])
-    const [currentUser, setCurrentUser] = useState({})
     const [cachedComment, setCachedComment] = useState("new comment")
     const [rating, setRating] = useState()
 
@@ -51,9 +49,6 @@ const MovieCommentList = (
                 console.log(comments)
                 setComments(comments)
             })
-
-        UserService.getCurrentUser()
-            .then(user => setCurrentUser(user))
     }, [])
 
     return(
@@ -61,20 +56,22 @@ const MovieCommentList = (
             <Grid item>
                     You are logged in as: {currentUser.username}
             </Grid>
+            {comments.length > 0 &&
             <Grid item xs={12}>
-                <Paper style={{ padding: "40px 20px", marginTop: 10 }}>
-                        {
-                            comments.map((comment, idx) =>
+                <Paper style={{padding: "40px 20px", marginTop: 10}}>
+                    {
+                        comments.map((comment, idx) =>
                             <Comment
                                 comment={comment}
                                 currentUser={currentUser}
                                 deleteComment={deleteComment}
                                 key={idx}
                             />
-                            )
-                        }
+                        )
+                    }
                 </Paper>
             </Grid>
+            }
             <Grid item container xs={12}>
                 <Grid item xs={12}>
                 <textarea
