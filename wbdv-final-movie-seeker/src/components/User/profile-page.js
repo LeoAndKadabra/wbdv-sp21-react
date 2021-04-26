@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,26 +21,26 @@ const ProfilePage = ({
   currentUser={
     username: notLoggedInUserName
   },
-  login,
   update,
   logout,
 }) =>  {
   const classes = userPageStyles();
   const history = useHistory();
 
-  const userRef = useRef("user");
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
 
+  const [updateSuccess, setUpdateSuccess] = useState(false)
+
   function onClickUpdate() {
-    let updatedUser= {
-      username: userRef.current.value,
-      password: pwdRef.current.value,
-      address:  addrRef.current.value,
-      email: emailRef.current.value,
-    };
-    update(updatedUser);
+      //password: pwdRef.current.value,
+    currentUser.address = addrRef.current.value;
+    currentUser.email = emailRef.current.value;
+
+    //console.log("User to update: ", currentUser)
+    update(currentUser, setUpdateSuccess);
+
   }
 
   function onClickLogout() {
@@ -50,7 +50,7 @@ const ProfilePage = ({
   return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={20} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs="auto" sm={8} md={5} component={Paper} elevation={6} square>
           <Container component="main" maxWidth="xs">
             <div className={classes.paper}>
               <Avatar className={classes.avatar}>
@@ -180,8 +180,7 @@ const stpm = (state) => {
 }
 const dtpm = (dispatch) => {
   return {
-    login: (userName, pwd) => userAction.getUserByCredential(dispatch, userName, pwd),
-    update: (user) => userAction.updateUser(user, dispatch),
+    update: (user, setUpdateSuccess) => userAction.updateUser(user, dispatch, setUpdateSuccess),
     logout: (user) => userAction.clearCurrentUser(user, dispatch)
   }
 }

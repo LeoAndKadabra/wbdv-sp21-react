@@ -17,13 +17,16 @@ const getUserByCredential = (dispatch, userName, pwd, setLoginSuccess) => { // U
         })
 }
 
-const updateUser = (user, dispatch) => { // Use this for user update
+const updateUser = (user, dispatch, setUpdateSuccess) => { // Use this for user update
     UserService.updateUser(user)
-        .then(status => {
+        .then(updatedUser => {
             dispatch({
             type: "UPDATE_USER",
             currentUser: user
         })
+            console.log("updatedUser:", updatedUser)
+            if(updatedUser)
+                setUpdateSuccess(true)
     })
 }
 

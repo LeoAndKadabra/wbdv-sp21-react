@@ -13,15 +13,8 @@ const NavBar = () => (
       <SearchBar
           onRequestSearch={appStore.findMoviesByTitle}
           placeholder="Search a movie ..."
-          autoFocus
       />
       {appStore.isLoading && <LinearProgress />}
-      <Link href="/">
-        <Button  color="secondary"
-            className="btn btn-primary">
-          <i className="fas fa-home fa-2x"></i>
-        </Button>
-      </Link>
       <RollDice/>
     </div>
 );

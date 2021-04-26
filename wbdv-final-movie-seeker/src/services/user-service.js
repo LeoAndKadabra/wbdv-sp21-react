@@ -41,6 +41,17 @@ export const getCurrentUser = () =>
             return currentUer
         });
 
+export const getOtherUser = (username) =>
+    fetch(`${USER_URL}/profile/${username}`, {
+      credentials: "include"
+    })
+    .then(response =>
+    {
+      let other = response.json()
+      console.log("get other user from server: " + other)
+      return other
+    });
+
 export const logout = () =>
     fetch(`${USER_URL}/logout`, {
         credentials: "include"
@@ -75,7 +86,7 @@ const UserService = {
   logout,
   updateUser,
   deleteUser,
-    getCurrentUser
+  getCurrentUser
 };
 
 export default UserService;

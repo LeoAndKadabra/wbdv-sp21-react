@@ -3,6 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Radio from '@material-ui/core/Radio';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -10,16 +11,36 @@ import AddToQueue from '@material-ui/icons/AddToQueue';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {userPageStyles} from './login-page';
-
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import userService from '../../services/user-service'
-
+import { useHistory } from "react-router-dom";
 
 export default function SignUpPage() {
+  const history = useHistory()
   const classes = userPageStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
+
+  const [adminState, setAdminState] = React.useState(false);
+
+  const handleChange = (event) => {
+    setAdminState(event.target.checked);
+  };
+
+  const favMovieRef = useRef("");
+  const favGenreRef = useRef("");
+  const imageRef = useRef("");
+
+  const [gender, setGender] = useState("female");
+  const changeGender = (event) => {
+    setGender(event.target.value)
+  }
+
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -41,7 +62,7 @@ export default function SignUpPage() {
                     label="name"
                     name="name"
                     inputRef={userRef}
-                    autoComplete="lname"
+                    autoComplete="name"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -82,6 +103,83 @@ export default function SignUpPage() {
                     autoComplete="address"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <label>
+                  <Radio
+                      checked={gender === 'female'}
+                      onChange={changeGender}
+                      value="female"
+                      name="radio-button-gender"
+                  />
+                  Female
+                </label>
+                <label>
+                  <Radio
+                      checked={gender === 'male'}
+                      onChange={changeGender}
+                      value="male"
+                      name="radio-button-gender"
+                      lable="male"
+                  />
+                  Male
+                </label>
+                <label>
+                  <Radio
+                      checked={gender === 'other'}
+                      onChange={changeGender}
+                      value="other"
+                      name="radio-button-gender"
+                      lable="other"
+                  />
+                  Other
+                </label>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="Favorite Genre"
+                    label="Favorite Genre"
+                    type="Favorite Genre"
+                    id="favGenre"
+                    inputRef={favGenreRef}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="Favorite Movie"
+                    label="Favorite Movie"
+                    type="Favorite Movie"
+                    id="favMovie"
+                    inputRef={favMovieRef}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="Image"
+                    label="Image"
+                    id="image"
+                    inputRef={imageRef}
+                />
+              </Grid>
+            </Grid>
+            <Grid>
+              <FormControl component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                      control={<Switch checked={adminState.isAdmin} onChange={handleChange} name="isAdmin" />}
+                      label="Create as Admin User"
+                  />
+                </FormGroup>
+
+              </FormControl>
             </Grid>
             <Button
                 fullWidth
@@ -89,14 +187,21 @@ export default function SignUpPage() {
                 color="primary"
                 className={classes.submit}
                 onClick={() => {
+                  console.log("registered admin state: ", adminState)
                     userService.register({
                         username: userRef.current.value,
                         password: pwdRef.current.value,
                         address:  addrRef.current.value,
                         email: emailRef.current.value,
+                        isAdmin: adminState,
+                        gender: gender,
+                        favMovie: favMovieRef.current.value,
+                        favGenre: favGenreRef.current.value,
+                        image: imageRef.current.value
                     }).then(
-                        user => console.log(user)
-                    )
+                        user => console.log("registeredUser: ", user)
+                    );
+                  history.push("/login");
                 }}
             >
               Sign Up

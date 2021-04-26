@@ -66,7 +66,7 @@ const LoginPage = ({
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       }
 
-      sleep(2000).then(() => {
+      sleep(1000).then(() => {
         goToProfile()
       })
     }
@@ -79,10 +79,8 @@ const LoginPage = ({
   }
 
   const goToProfile = () => {
-    const profilePath = '/profile/' + currentUser.username;
-    if(currentUser.username !== notLoggedInUserName){
-      history.push(profilePath);
-    }
+    const profilePath = '/profile';
+    history.push(profilePath);
   }
 
   return (

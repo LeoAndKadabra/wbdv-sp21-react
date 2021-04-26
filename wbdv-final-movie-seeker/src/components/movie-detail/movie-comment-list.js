@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom";
 import Comment from "./movie-comment";
 import CommentService, {updateComment} from "../../services/comment-service"
 import SimpleRating from "../../components/movie-detail/movie-rating"
-import userService, {getCurrentUser} from "../../services/user-service";
 import { Button, Paper } from "@material-ui/core";
-import UserService from "../../services/user-service";
+import Grid from "@material-ui/core/Grid";
 
 const MovieCommentList = (
     {
-        movieId
+        movieId,
+        currentUser
     }) => {
     const [comments, setComments] = useState([])
-    const [currentUser, setCurrentUser] = useState({})
     const [cachedComment, setCachedComment] = useState("new comment")
     const [rating, setRating] = useState()
 
@@ -51,54 +49,57 @@ const MovieCommentList = (
                 console.log(comments)
                 setComments(comments)
             })
-
-        UserService.getCurrentUser()
-            .then(user => setCurrentUser(user))
     }, [])
 
     return(
-        <>
-            <div className="row p-3">
-                <div className="col">
+        <Grid container spacing={3}>
+            <Grid item>
                     You are logged in as: {currentUser.username}
-                </div>
-            </div>
-
-            <Paper style={{ padding: "40px 20px", marginTop: 10 }}>
-
+            </Grid>
+            {comments.length > 0 &&
+            <Grid item xs={12}>
+                <Paper style={{padding: "40px 20px", marginTop: 10}}>
                     {
                         comments.map((comment, idx) =>
-                        <Comment
-                            comment={comment}
-                            currentUser={currentUser}
-                            deleteComment={deleteComment}
-                            key={idx}
-                        />
+                            <Comment
+                                comment={comment}
+                                currentUser={currentUser}
+                                deleteComment={deleteComment}
+                                key={idx}
+                            />
                         )
                     }
-            </Paper>
-            <div className="row text-primary p-3">
+                </Paper>
+            </Grid>
+            }
+            <Grid item container xs={12}>
+                <Grid item xs={12}>
                 <textarea
                     onChange={(e) =>
                         setCachedComment(e.target.value)}
                     placeholder="Enter one list item per line."
                     value={cachedComment}
-                    rows={5}
-                    className="form-control col-9"></textarea>
-                <div className="col-3">
-                    <div className="align-content-center">
-                        <SimpleRating setRating={setRating}/>
-                    </div>
-                    <div className="align-content-center">
+
+                    className="form-control mp-2"></textarea>
+                <Grid item container direction={"row"} xs={12} spacing={1}>
+                    <Grid item xs={9}>
+                        <SimpleRating
+                            style={{ marginTop: 10 }}
+                            className="p-2"
+                            setRating={setRating}/>
+                    </Grid>
+                    <Grid item xs={3}>
                         <Button
+                            style={{marginTop: 10 }}
                             onClick={() => createComment()}
                             variant="contained" color="primary" className="float-right">
                             Submit
                         </Button>
-                    </div>
-                </div>
-            </div>
-        </>)
+                    </Grid>
+                </Grid>
+            </Grid>
+            </Grid>
+        </Grid>)
 }
 
 export default MovieCommentList
