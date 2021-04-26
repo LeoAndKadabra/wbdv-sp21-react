@@ -25,17 +25,19 @@ export default function SignUpPage() {
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
-
-  const [adminState, setAdminState] = React.useState(false);
-
-  const handleChange = (event) => {
-    setAdminState(event.target.checked);
-  };
-
   const favMovieRef = useRef("");
   const favGenreRef = useRef("");
   const imageRef = useRef("");
 
+  //admin setter
+  const [adminState, setAdminState] = React.useState({
+    isAdmin: false,
+  });
+  const handleChange = (event) => {
+    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+  };
+
+  //gender setter
   const [gender, setGender] = useState("female");
   const changeGender = (event) => {
     setGender(event.target.value)
@@ -93,7 +95,6 @@ export default function SignUpPage() {
               <Grid item xs={12}>
                 <TextField
                     variant="outlined"
-                    required
                     fullWidth
                     name="address"
                     label="Address"
@@ -104,40 +105,8 @@ export default function SignUpPage() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <label>
-                  <Radio
-                      checked={gender === 'female'}
-                      onChange={changeGender}
-                      value="female"
-                      name="radio-button-gender"
-                  />
-                  Female
-                </label>
-                <label>
-                  <Radio
-                      checked={gender === 'male'}
-                      onChange={changeGender}
-                      value="male"
-                      name="radio-button-gender"
-                      lable="male"
-                  />
-                  Male
-                </label>
-                <label>
-                  <Radio
-                      checked={gender === 'other'}
-                      onChange={changeGender}
-                      value="other"
-                      name="radio-button-gender"
-                      lable="other"
-                  />
-                  Other
-                </label>
-              </Grid>
-              <Grid item xs={12}>
                 <TextField
                     variant="outlined"
-                    required
                     fullWidth
                     name="Favorite Genre"
                     label="Favorite Genre"
@@ -149,7 +118,6 @@ export default function SignUpPage() {
               <Grid item xs={12}>
                 <TextField
                     variant="outlined"
-                    required
                     fullWidth
                     name="Favorite Movie"
                     label="Favorite Movie"
@@ -164,11 +132,42 @@ export default function SignUpPage() {
                     required
                     fullWidth
                     name="Image"
-                    label="Image"
+                    label="Profile Image Link"
                     id="image"
                     inputRef={imageRef}
                 />
               </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <label>
+                <Radio
+                    checked={gender === 'female'}
+                    onChange={changeGender}
+                    value="female"
+                    name="radio-button-gender"
+                />
+                Female
+              </label>
+              <label>
+                <Radio
+                    checked={gender === 'male'}
+                    onChange={changeGender}
+                    value="male"
+                    name="radio-button-gender"
+                    lable="male"
+                />
+                Male
+              </label>
+              <label>
+                <Radio
+                    checked={gender === 'other'}
+                    onChange={changeGender}
+                    value="other"
+                    name="radio-button-gender"
+                    lable="other"
+                />
+                Other
+              </label>
             </Grid>
             <Grid>
               <FormControl component="fieldset">
@@ -178,7 +177,6 @@ export default function SignUpPage() {
                       label="Create as Admin User"
                   />
                 </FormGroup>
-
               </FormControl>
             </Grid>
             <Button
