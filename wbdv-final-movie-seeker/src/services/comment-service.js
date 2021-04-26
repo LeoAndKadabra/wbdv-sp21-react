@@ -55,10 +55,10 @@ export const getAllCommentsForUser = (username) =>{
 };
 
 export const getLatest3CommentsForUser = (username) =>{
-  return fetch(`${COMMENT_URL}?username=${username}`, {
+  return fetch(`${COMMENT_URL}?username=${username}&limit=3`, {
     credentials: "include"
   })
-      .then(response => response.json()).then(comments => comments.slice(-3))
+      .then(response => response.json())
 };
 
 export const deleteComment = (commentId) => {

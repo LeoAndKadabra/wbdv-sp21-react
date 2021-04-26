@@ -12,7 +12,7 @@ const MovieCommentList = (
         currentUser
     }) => {
     const [comments, setComments] = useState([])
-    const [cachedComment, setCachedComment] = useState("new comment")
+    const [cachedComment, setCachedComment] = useState("")
     const [rating, setRating] = useState(5)
 
     const createComment = () => {
@@ -109,6 +109,7 @@ const MovieCommentList = (
                     onChange={(e) =>
                         setCachedComment(e.target.value)}
                     placeholder="Please enter your comment."
+                    value={cachedComment}
                     className="form-control mp-2"></textarea>
                 <Grid item container direction={"row"} xs={12} spacing={1}>
                     <Grid item xs={9}>
@@ -120,7 +121,11 @@ const MovieCommentList = (
                     <Grid item xs={3}>
                         <Button
                             style={{marginTop: 10 }}
-                            onClick={() => createComment()}
+                            onClick={() =>
+                                {
+                                    createComment()
+                                    setCachedComment("")
+                                }}
                             variant="contained" color="primary" className="float-right">
                             Submit
                         </Button>
