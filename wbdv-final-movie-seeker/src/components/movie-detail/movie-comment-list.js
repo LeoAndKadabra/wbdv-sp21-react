@@ -4,6 +4,7 @@ import CommentService, {updateComment} from "../../services/comment-service"
 import SimpleRating from "../../components/movie-detail/movie-rating"
 import { Button, Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import UserService from "../../services/user-service";
 
 const MovieCommentList = (
     {
@@ -12,7 +13,7 @@ const MovieCommentList = (
     }) => {
     const [comments, setComments] = useState([])
     const [cachedComment, setCachedComment] = useState("new comment")
-    const [rating, setRating] = useState()
+    const [rating, setRating] = useState(5)
 
     const createComment = () => {
         if (!currentUser || currentUser.username === "") {
@@ -33,8 +34,27 @@ const MovieCommentList = (
                     newComment
                 ])})
     }
-    const likeComment = (userLikeComment, commentToLike) => {
 
+    const likeComment = (commentToLike) => {
+        // add comment to user/userlike
+        const newCurrentUser = {
+            ...currentUser,
+            likedComments: currentUser.likedComments ? [commentToLike._id] : [
+                ...currentUser.likedComments,
+                commentToLike._id
+            ]
+        }
+        UserService.updateUser(newCurrentUser)
+
+        // add user to comment/likedUser
+        const newComment = {
+            ...commentToLike,
+            likedUsers: commentToLike.likedUsers ? [currentUser.username]: [
+                ...commentToLike.likedUsers,
+                currentUser.username
+            ]
+        }
+        CommentService.updateComment(commentToLike._id, newComment)
     }
 
     const deleteComment = (commentToDel) => {
@@ -83,6 +103,7 @@ const MovieCommentList = (
                 <Grid item container direction={"row"} xs={12} spacing={1}>
                     <Grid item xs={9}>
                         <SimpleRating
+                            value={5}
                             style={{ marginTop: 10 }}
                             setRating={setRating}/>
                     </Grid>

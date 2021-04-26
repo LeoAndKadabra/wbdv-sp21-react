@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import CommentService from "../../services/comment-service";
 
 export default function SimpleRating({setRating}) {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(5);
 
   return (
       <div>
