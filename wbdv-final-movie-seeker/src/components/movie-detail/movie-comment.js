@@ -9,6 +9,7 @@ const MovieComment =
     ({
         currentUser,
         comment,
+        likeComment,
         deleteComment,
         turnOnMovieLink=false
     }) => {
@@ -34,20 +35,25 @@ const MovieComment =
                 </p>
             </Grid>
             <Grid item>
-                {/*<Button
+                {(!turnOnMovieLink && currentUser.username !== comment.username && currentUser.isAdmin !== "true") && <Button
                     variant="contained"
-                    color="teal"
-                    className="float-right">
-                    Update
-                </Button>*/}
-                {(currentUser.username === comment.username || currentUser.isAdmin === "true") && <Button
-                    variant="contained"
-                    color="secondary"
-                    className="float-right"
-                    onClick={() => deleteComment(comment)}>
-                    Delete
+                    className="float-right text-success"
+                    onClick={() => likeComment(comment)}>
+                    Like
                 </Button>}
             </Grid>
+            {
+                (!turnOnMovieLink && (currentUser.username === comment.username || currentUser.isAdmin === "true")) &&
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className="float-right"
+                        onClick={() => deleteComment(comment)}>
+                        Delete
+                    </Button>
+                </Grid>
+            }
             {
                 turnOnMovieLink &&
                 <Grid item>

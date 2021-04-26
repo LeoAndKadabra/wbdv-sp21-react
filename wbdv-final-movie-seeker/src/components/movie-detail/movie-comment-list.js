@@ -33,6 +33,9 @@ const MovieCommentList = (
                     newComment
                 ])})
     }
+    const likeComment = (userLikeComment, commentToLike) => {
+
+    }
 
     const deleteComment = (commentToDel) => {
         CommentService.deleteComment(commentToDel._id)
@@ -53,9 +56,6 @@ const MovieCommentList = (
 
     return(
         <Grid container spacing={3}>
-            <Grid item>
-                    You are logged in as: {currentUser.username}
-            </Grid>
             {comments.length > 0 &&
             <Grid item xs={12}>
                 <Paper style={{padding: "40px 20px", marginTop: 10}}>
@@ -64,6 +64,7 @@ const MovieCommentList = (
                             <Comment
                                 comment={comment}
                                 currentUser={currentUser}
+                                likeComment={likeComment}
                                 deleteComment={deleteComment}
                                 key={idx}
                             />
@@ -77,15 +78,12 @@ const MovieCommentList = (
                 <textarea
                     onChange={(e) =>
                         setCachedComment(e.target.value)}
-                    placeholder="Enter one list item per line."
-                    value={cachedComment}
-
+                    placeholder="Please enter your comment."
                     className="form-control mp-2"></textarea>
                 <Grid item container direction={"row"} xs={12} spacing={1}>
                     <Grid item xs={9}>
                         <SimpleRating
                             style={{ marginTop: 10 }}
-                            className="p-2"
                             setRating={setRating}/>
                     </Grid>
                     <Grid item xs={3}>

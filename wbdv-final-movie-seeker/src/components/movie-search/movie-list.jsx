@@ -6,7 +6,7 @@ import MovieCard from './movie-card';
 // this is re-rendered whenever the relevant parts of the used data stores change
 const MovieList = () => (
     <div className="movielist">
-      {appStore.movies === undefined || appStore.movies.length ? (<></>): (
+      {appStore.movies === undefined || !appStore.movies.length ? (<></>): (
           appStore.movies.map(movie => <MovieCard key={movie.Title} {...movie} />)
       )}
     </div>

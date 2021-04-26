@@ -1,6 +1,6 @@
 import UserService from "../services/user-service";
 
-const getUserByCredential = (dispatch, userName, pwd, setLoginSuccess) => { // Use this for login
+const getUserByCredential = (dispatch, userName, pwd, setLoginSuccess, setShowLoginFail) => { // Use this for login
     UserService.login({
         username: userName,
         password: pwd
@@ -12,8 +12,12 @@ const getUserByCredential = (dispatch, userName, pwd, setLoginSuccess) => { // U
             })
             console.log("currentUser:", user)
 
-            if (user)
+            if (user.username !== "") {
                 setLoginSuccess(true)
+                setShowLoginFail(false)
+            }
+            else
+                setShowLoginFail(true)
         })
 }
 

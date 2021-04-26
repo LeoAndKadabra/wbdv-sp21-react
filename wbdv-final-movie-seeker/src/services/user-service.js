@@ -28,7 +28,13 @@ export const login = (user) =>
             'content-type': 'application/json'
         }
     })
-    .then(response => response.json());
+    .then(response => {
+        if (response.status >= 400)
+            return {
+                username: ""
+            }
+        return response.json()
+    });
 
 export const getCurrentUser = () =>
     fetch(`${USER_URL}/profile`, {

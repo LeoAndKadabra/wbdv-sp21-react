@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import userService from '../../services/user-service'
 import { useHistory } from "react-router-dom";
+import TopBar from "../top-bar";
 
 export default function SignUpPage() {
   const history = useHistory()
@@ -44,6 +45,12 @@ export default function SignUpPage() {
   }
 
   return (
+      <>
+      <Grid container spacing={3}>
+          <Grid item xs={12}>
+              <TopBar currentUser={{username: ""}} headingText="Sign Up" />
+          </Grid>
+      </Grid>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -51,7 +58,7 @@ export default function SignUpPage() {
             <AddToQueue />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
@@ -216,5 +223,6 @@ export default function SignUpPage() {
         <Box mt={5}>
         </Box>
       </Container>
+        </>
   );
 }
