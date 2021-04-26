@@ -77,10 +77,15 @@ export const deleteComment = (commentId) => {
   .then(response => response.json());
 };
 
-export const updateComment= (commentId, NewComment) => {
-  deleteComment(commentId);
-  createComment(NewComment)
-};
+export const updateComment= (commentId, NewComment) =>
+  fetch(`${COMMENT_URL}`, {
+    method: 'PUT',
+    body: JSON.stringify(NewComment),
+    credentials: "include",
+    headers: {
+      'content-type': 'application/json'
+    }
+  }).then(response => response.json());
 
 export default {
   createComment,
