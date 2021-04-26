@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -29,7 +28,6 @@ import {Link} from "react-router-dom";
 //. get current logged in user by service, before rendering page
 //. Update Profile Img in profile page as soon as user hit update
 //. All Comments from user List page
-//. View for other users
 
 
 const notLoggedInUserName = "not logged in";
@@ -110,6 +108,8 @@ const ProfilePage = ({
     currentUser.email = emailRef.current.value;
     currentUser.isAdmin = adminState.isAdmin;
     currentUser.gender = genderState;
+    currentUser.favMovie = favMovieRef.current.value;
+    currentUser.favGenre = favGenreRef.current.value;
 
     if(userImgRef.current.value){
       currentUser.image = userImgRef.current.value;

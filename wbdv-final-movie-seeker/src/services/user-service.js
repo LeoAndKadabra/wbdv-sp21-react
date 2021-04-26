@@ -92,7 +92,8 @@ const UserService = {
   logout,
   updateUser,
   deleteUser,
-  getCurrentUser
+  getCurrentUser,
+  getOtherUser
 };
 
 export default UserService;

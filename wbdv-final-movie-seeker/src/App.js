@@ -6,6 +6,7 @@ import LoginPage from "./components/User/login-page";
 import SignupPage from "./components/User/signup-page";
 import {BrowserRouter, Route} from "react-router-dom";
 import React from 'react'
+import OthersProfilePage from "./components/User/others_profile_page";
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
             <DetailPage/>
           </Route>
         <Route path={["/profile/:userId"]} exact={true}>
-            <ProfilePage/>
+            <OthersProfilePage/>
         </Route>
           <Route path="/profile" exact={true}>
             <ProfilePage/>
