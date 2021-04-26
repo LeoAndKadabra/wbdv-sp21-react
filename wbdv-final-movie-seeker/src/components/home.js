@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,6 +16,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CommentService, {getLatestSeveralComments} from "../services/comment-service";
 import UserService from "../services/user-service";
 import CommentList from "./general-comment/comment-list";
+import TopBar from "./top-bar";
 
 const Home = () => {
     const [currentUser, setCurrentUser] = useState({
@@ -60,41 +60,11 @@ const Home = () => {
     return(
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6" style={{ flex: 1 }} className={useStyles.title}>
-                            Welcome to Movie Seeker
-                        </Typography>
-                        <Link
-                            to="/search"
-                            style={{ fontSize: '19px' }}
-                            className="text-white p-2">
-                            <SearchIcon /> Search Movie
-                        </Link>
-                        {
-                            currentUser.username === "" && <Grid item>
-                                <Link
-                                    to="/login"
-                                    style={{ fontSize: '19px' }}
-                                    className="text-white p-2">Login</Link>
-                                <Link
-                                    to="/register"
-                                    style={{ fontSize: '19px' }}
-                                    className="text-white p-2">Register</Link>
-                            </Grid>
-                        }
-                        {
-                            currentUser.username &&
-                            <Typography variant="h6" color="inherit" className={useStyles.title}>
-                                <Link to="/profile" className="text-white p-2">{currentUser.username}</Link>
-                            </Typography>
-                        }
-                    </Toolbar>
-                </AppBar>
+                <TopBar headingText="Welcome to Movie Seeker" currentUser={currentUser} />
             </Grid>
             <Grid item container xs={12} spacing={3} >
                 <Grid item xs={4}>
-                    <Link to={'/search/batman'}>
+                    <Link to={'/details/tt0372784'}>
                         <Card>
                             <CardHeader
                                 title="Batman Begins"
@@ -115,7 +85,7 @@ const Home = () => {
                     </Link>
                 </Grid>
                 <Grid item xs={4}>
-                    <Link to={'/search/batman'}>
+                    <Link to={'/details/tt2313197'}>
                         <Card>
                             <CardHeader
                                 title="The Dark Knight"
@@ -136,17 +106,17 @@ const Home = () => {
                     </Link>
                 </Grid>
                 <Grid item xs={4}>
-                    <Link to={'/search/batman'}>
+                    <Link to={'/details/tt2975590'}>
                         <Card>
                             <CardHeader
-                                title="The Dark Knight Rises"
-                                subheader="2012"
+                                title="Batman vs Superman"
+                                subheader="2016"
                             />
                             <CardMedia
                                 className={useStyles.media}
                                 component="img"
                                 href="/search/batman"
-                                src="https://resizing.flixster.com/Ev6G8Z0H3SFepS-SDY0X-OsVpmQ=/206x305/v2/https://flxt.tmsimg.com/NowShowing/108806/108806_ac.jpg"
+                                src="https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
                                 title="Batman"
                             />
                             <CardContent>

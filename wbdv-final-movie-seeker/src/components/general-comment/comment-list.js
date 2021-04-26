@@ -10,19 +10,20 @@ const CommentList = (
 
     return(
         <>
-            <Paper style={{ padding: "40px 20px", marginTop: 10 }}>
-
-                {
-                    comments.map((comment, idx) =>
-                        <Comment
-                            comment={comment}
-                            key={idx}
-                            currentUser={currentUser}
-                            turnOnMovieLink={true}
-                        />
-                    )
-                }
-            </Paper>
+            {comments.length > 0 &&
+                <Paper style={{padding: "40px 20px", marginTop: 10}}>
+                    {
+                        comments.map((comment, idx) =>
+                            <Comment
+                                comment={comment}
+                                key={idx}
+                                currentUser={currentUser}
+                                turnOnMovieLink={true}
+                            />
+                        )
+                    }
+                </Paper>
+            }
         </>)
 }
 

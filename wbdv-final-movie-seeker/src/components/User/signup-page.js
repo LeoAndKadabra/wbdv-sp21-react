@@ -26,12 +26,10 @@ export default function SignUpPage() {
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
 
-  const [adminState, setAdminState] = React.useState({
-    isAdmin: false,
-  });
+  const [adminState, setAdminState] = React.useState(false);
 
   const handleChange = (event) => {
-    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+    setAdminState(event.target.checked);
   };
 
   const favMovieRef = useRef("");

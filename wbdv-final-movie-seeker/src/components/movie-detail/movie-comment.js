@@ -40,7 +40,7 @@ const MovieComment =
                     className="float-right">
                     Update
                 </Button>*/}
-                {currentUser.username === comment.username && <Button
+                {(currentUser.username === comment.username || currentUser.isAdmin === "true") && <Button
                     variant="contained"
                     color="secondary"
                     className="float-right"
