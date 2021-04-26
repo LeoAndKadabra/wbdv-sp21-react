@@ -11,12 +11,12 @@ const MovieDetail = ({movie, history, currentUser}) => {
                 <TopBar headingText={headingText} currentUser={currentUser} />
             </Grid>
             <div className="row p-2">
-                <div className="col-4">
+                <div className="col">
                     <div className="row text-center">
                         <img src={movie.Poster} className="h-100 rounded"/>
                     </div>
                 </div>
-                <div className="col-8">
+                <div className="col">
                     <p>
                         <span className="text-muted">Director:</span> {movie.Director}
                     </p>
