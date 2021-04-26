@@ -86,7 +86,7 @@ const MovieCommentList = (
                     rows={5}
                     className="form-control col-9"></textarea>
                 <div className="col-3">
-                    <div className="float-right">
+                    <div className="align-content-center">
                         <SimpleRating setRating={setRating}/>
                     </div>
                     <div className="align-content-center">
