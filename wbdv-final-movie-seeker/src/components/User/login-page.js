@@ -11,16 +11,18 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
+import TopBar from "../top-bar";
 
 import {connect} from 'react-redux'
 import userAction from '../../actions/user-action'
+import Alert from "@material-ui/lab/Alert";
 
 export const userPageStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -46,6 +48,7 @@ const LoginPage = ({
                      },
                      login
                    }) => {
+  const [showLoginFail, setShowLoginFail] = useState(false)
   const classes = userPageStyles();
   const userRef = useRef("user");
   const pwdRef = useRef("pwd");
@@ -67,7 +70,7 @@ const LoginPage = ({
   function onClickLogin() {
     let userName=userRef.current.value;
     let password=pwdRef.current.value;
-    login(userName, password, setLoginSuccess);
+    login(userName, password, setLoginSuccess, setShowLoginFail);
   }
 
   const goToProfile = () => {
@@ -76,6 +79,12 @@ const LoginPage = ({
   }
 
   return (
+      <>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TopBar currentUser={{username: ""}} headingText="Sign In" />
+        </Grid>
+      </Grid>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -83,7 +92,10 @@ const LoginPage = ({
             <LocalMovies />
           </Avatar>
           {
-            loginSuccess && <p className="text-success"> Login Succeeded </p>
+            loginSuccess && <Alert severity="success">Login succeeded!</Alert>
+          }
+          {
+            showLoginFail && <Alert severity="error">Login failed! No matched username and password!</Alert>
           }
           <Typography component="h1" variant="h4">
             Sign In
@@ -139,6 +151,7 @@ const LoginPage = ({
         <Box mt={8}>
         </Box>
       </Container>
+        </>
   );
 }
 
@@ -149,8 +162,8 @@ const stpm = (state) => {
 }
 const dtpm = (dispatch) => {
   return {
-    login: (userName, pwd, setLoginSuccess) => {
-      userAction.getUserByCredential(dispatch, userName, pwd, setLoginSuccess)
+    login: (userName, pwd, setLoginSuccess, setShowLoginFail) => {
+      userAction.getUserByCredential(dispatch, userName, pwd, setLoginSuccess, setShowLoginFail)
     }
   }
 }

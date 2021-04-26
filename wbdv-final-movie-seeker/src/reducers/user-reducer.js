@@ -1,6 +1,6 @@
 const initialState = {
     currentUser: {
-        username:"not logged in"
+        username:""
     }
 }
 
