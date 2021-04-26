@@ -31,11 +31,9 @@ export default function SignUpPage() {
   const imageRef = useRef("");
 
   //admin setter
-  const [adminState, setAdminState] = React.useState({
-    isAdmin: false,
-  });
+  const [adminState, setAdminState] = React.useState(false);
   const handleChange = (event) => {
-    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+    setAdminState(event.target.checked);
   };
 
   //gender setter
@@ -180,7 +178,7 @@ export default function SignUpPage() {
               <FormControl component="fieldset">
                 <FormGroup>
                   <FormControlLabel
-                      control={<Switch checked={adminState.isAdmin} onChange={handleChange} name="isAdmin" />}
+                      control={<Switch checked={adminState} onChange={handleChange} name="isAdmin" />}
                       label="Create as Admin User"
                   />
                 </FormGroup>
@@ -198,7 +196,7 @@ export default function SignUpPage() {
                         password: pwdRef.current.value,
                         address:  addrRef.current.value,
                         email: emailRef.current.value,
-                        isAdmin: adminState,
+                        isAdmin: adminState.valueOf(),
                         gender: gender,
                         favMovie: favMovieRef.current.value,
                         favGenre: favGenreRef.current.value,

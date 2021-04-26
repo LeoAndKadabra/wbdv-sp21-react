@@ -25,15 +25,12 @@ import queryString from 'query-string';
 
 
 const OthersProfilePage = ({
-  props,
-  username,
 
 }) =>  {
   const pageStyles = userPageStyles();
   const history = useHistory();
   const location = useLocation();
   const userId = location.pathname.split('/')[2];
-  console.log(userId);
 
   // States
   const [updateSuccess, setUpdateSuccess] = useState(false)
@@ -41,23 +38,22 @@ const OthersProfilePage = ({
   const [comments, setComments] = useState([])
 
   useEffect(() => {
-    //console.log("param:", this.props.match.params.redirectParam)
     UserService.getOtherUser(userId)
     .then(user => {
       setCurrentUser(user);
-      console.log("SessionUser:", user);
+      console.log("CurrentUser:", user);
+      setUpdateSuccess(true)
     });
 
     // get comments from server
     CommentService.getLatest3CommentsForUser(currentUser.username)
     .then(comments => {
-      // console.log(comments)
       setComments(comments)
     });
   }, [])
 
   // Set user profile image based on signup info
-  let imageUrl = 'url(https://cdn.hipwallpaper.com/i/37/23/nT8CqZ.jpeg)'
+  let imageUrl = 'url(https://i.pinimg.com/originals/7a/f8/28/7af8280fc6c75bc2191f4eed895a461d.jpg)'
   if (currentUser.image){
     imageUrl ='url(' + currentUser.image + ')'
   }
@@ -73,17 +69,6 @@ const OthersProfilePage = ({
     }
   }));
   let imgStyle = user_image_style();
-
-  //admin setter
-  const [adminState, setAdminState] = React.useState({
-    isAdmin: currentUser.isAdmin,
-  });
-
-  //gender setter
-  const [genderState, setGender] = useState(currentUser.gender);
-  const changeGender = (event) => {
-    setGender(event.target.value)
-  }
 
   return (
       <Grid container component="main" className={pageStyles.root}>
@@ -105,6 +90,7 @@ const OthersProfilePage = ({
                   <Grid item xs={12}>
                     <TextField
                         value={currentUser.username}
+                        defaultValue={123}
                         // disabled
                         fullWidth
                         id="userName"
@@ -115,6 +101,7 @@ const OthersProfilePage = ({
                   <Grid item xs={12}>
                     <TextField
                         value={currentUser.favGenre}
+                        defaultValue={123}
                         fullWidth
                         id="favGenre-show"
                         label="Favorite Genre"
@@ -124,6 +111,7 @@ const OthersProfilePage = ({
                   <Grid item xs={12}>
                     <TextField
                         value={currentUser.favMovie}
+                        defaultValue={123}
                         fullWidth
                         name="Favorite Movie"
                         label="Favorite Movie"
@@ -135,9 +123,8 @@ const OthersProfilePage = ({
                 <Grid item xs={12}>
                   <label>
                     <Radio
-                        readOnly
-                        checked={genderState === 'female'}
-                        onChange={changeGender}
+                        disabled
+                        checked={currentUser.gender === 'female'}
                         value="female"
                         name="radio-button-gender"
                     />
@@ -145,9 +132,8 @@ const OthersProfilePage = ({
                   </label>
                   <label>
                     <Radio
-                        readOnly
-                        checked={genderState === 'male'}
-                        onChange={changeGender}
+                        disabled
+                        checked={currentUser.gender === 'male'}
                         value="male"
                         name="radio-button-gender"
                         lable="male"
@@ -156,9 +142,8 @@ const OthersProfilePage = ({
                   </label>
                   <label>
                     <Radio
-                        readOnly
-                        checked={genderState === 'other'}
-                        onChange={changeGender}
+                        disabled
+                        checked={currentUser.gender === 'other'}
                         value="other"
                         name="radio-button-gender"
                         lable="other"
@@ -168,12 +153,12 @@ const OthersProfilePage = ({
                 </Grid>
                 <Grid>
                   <FormControl component="fieldset">
-                    <FormGroup>
+
                       <FormControlLabel
-                          control={<Switch readOnly checked={adminState.isAdmin} name="isAdmin" />}
+                          control={<Switch checked={currentUser.isAdmin || false} name="isAdmin" />}
                           label="User is admin"
                       />
-                    </FormGroup>
+
                   </FormControl>
                 </Grid>
               </form>

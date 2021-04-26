@@ -25,16 +25,12 @@ import Switch from "@material-ui/core/Switch/Switch";
 import {Link} from "react-router-dom";
 
 //TODO:
-//. get current logged in user by service, before rendering page
-//. Update Profile Img in profile page as soon as user hit update
 //. All Comments from user List page
+//. Rely on service getCurrentUser.
 
 
-const notLoggedInUserName = "not logged in";
 const ProfilePage = ({
-  currentUser={
-    username: notLoggedInUserName
-  },
+  currentUser={},
   update,
   logout,
 }) =>  {
@@ -45,7 +41,9 @@ const ProfilePage = ({
   const [updateSuccess, setUpdateSuccess] = useState(false)
    const [sessionUser, setSessionUser] = useState({})
   const [comments, setComments] = useState([])
-
+  if(!currentUser.username){
+    currentUser = sessionUser;
+  }
 
   useEffect(() => {
     UserService.getCurrentUser()
@@ -64,11 +62,11 @@ const ProfilePage = ({
   }, [])
 
   // Set user profile image based on signup info
-  let imageUrl = 'url(https://cdn.hipwallpaper.com/i/37/23/nT8CqZ.jpeg)'
+  let imageUrl = 'url(https://i.pinimg.com/originals/7a/f8/28/7af8280fc6c75bc2191f4eed895a461d.jpg)'
   if (currentUser.image){
     imageUrl ='url(' + currentUser.image + ')'
   }
- // console.log(imageUrl)
+
   const user_image_style = makeStyles((theme) => ({
     user_image: {
       backgroundImage: imageUrl,
@@ -86,15 +84,13 @@ const ProfilePage = ({
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
   const userImgRef = useRef("userImgRef");
-  const favMovieRef = useRef("");
-  const favGenreRef = useRef("");
+  const favMovieRef = useRef("favMovieRef");
+  const favGenreRef = useRef("favGenreRef");
 
   //admin setter
-  const [adminState, setAdminState] = React.useState({
-    isAdmin: currentUser.isAdmin,
-  });
+  const [adminState, setAdminState] = React.useState(currentUser.isAdmin);
   const handleAdminChange = (event) => {
-    setAdminState({ ...adminState, [event.target.name]: event.target.checked });
+    setAdminState(event.target.checked);
   };
 
   //gender setter
@@ -106,7 +102,7 @@ const ProfilePage = ({
   function onClickUpdate() {
     currentUser.address = addrRef.current.value;
     currentUser.email = emailRef.current.value;
-    currentUser.isAdmin = adminState.isAdmin;
+    currentUser.isAdmin = adminState.valueOf();
     currentUser.gender = genderState;
     currentUser.favMovie = favMovieRef.current.value;
     currentUser.favGenre = favGenreRef.current.value;
@@ -117,6 +113,7 @@ const ProfilePage = ({
 
     console.log("User to update: ", currentUser)
     update(currentUser, setUpdateSuccess);
+    setSessionUser(currentUser)
 
   }
 
@@ -155,7 +152,6 @@ const ProfilePage = ({
                     <TextField
                         value={currentUser.address}
                         fullWidth
-                       // disabled
                         id="homeAddress-show"
                         label="Home Address"
                         name="homeAddress"
@@ -285,7 +281,7 @@ const ProfilePage = ({
                   <FormControl component="fieldset">
                     <FormGroup>
                       <FormControlLabel
-                          control={<Switch checked={adminState.isAdmin} onChange={handleAdminChange} name="isAdmin" />}
+                          control={<Switch checked={adminState} onChange={handleAdminChange} name="isAdmin" />}
                           label="User is admin"
                       />
                     </FormGroup>
