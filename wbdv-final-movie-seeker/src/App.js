@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/details/:imdbID" exact={true}>
             <DetailPage/>
           </Route>
-        <Route path={["/profile", "/profile/:userId"]} exact={true}>
+        <Route path={["/profile/:userId"]} exact={true}>
             <ProfilePage/>
         </Route>
           <Route path="/profile" exact={true}>

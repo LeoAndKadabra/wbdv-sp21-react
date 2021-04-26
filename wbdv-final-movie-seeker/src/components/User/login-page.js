@@ -19,14 +19,6 @@ export const userPageStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
-  user_image: {
-    backgroundImage: 'url(https://cdn.hipwallpaper.com/i/37/23/nT8CqZ.jpeg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',

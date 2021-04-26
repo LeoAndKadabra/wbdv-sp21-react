@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,11 @@ import Container from '@material-ui/core/Container';
 import userAction from "../../actions/user-action";
 import {connect} from "react-redux";
 import { useHistory } from "react-router-dom";
+import CommentService from "../../services/comment-service";
+import UserService from "../../services/user-service";
+import {makeStyles} from "@material-ui/core";
+
+
 
 
 const notLoggedInUserName = "not logged in";
@@ -24,21 +29,63 @@ const ProfilePage = ({
   update,
   logout,
 }) =>  {
-  const classes = userPageStyles();
+  const pageStyles = userPageStyles();
+
+  // Set user profile image based on signup info
+  let imageUrl = 'url(https://cdn.hipwallpaper.com/i/37/23/nT8CqZ.jpeg)'
+  if (currentUser.image){
+    imageUrl ='url(' + currentUser.image + ')'
+  }
+  console.log(imageUrl)
+  const user_image_style = makeStyles((theme) => ({
+    user_image: {
+      backgroundImage: imageUrl,
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+          theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }
+  }));
+  const imgStyle = user_image_style();
+
+
   const history = useHistory();
 
+  // Input Refs
   const pwdRef = useRef("pwd");
   const emailRef = useRef("email");
   const addrRef = useRef("addr");
+  const userImgRef = useRef("userImgRef");
 
+
+  // States
   const [updateSuccess, setUpdateSuccess] = useState(false)
+ // const [currentUser, setCurrentUser] = useState({})
+  const [comments, setComments] = useState([])
+
+  //
+  useEffect(() => {
+    // UserService.getCurrentUser()
+    // .then(user => setCurrentUser(user))
+
+    // get comments from server
+    CommentService.getLatest3CommentsForUser(currentUser.username)
+    .then(comments => {
+      console.log(comments)
+      setComments(comments)
+    });
+  }, [])
 
   function onClickUpdate() {
-      //password: pwdRef.current.value,
     currentUser.address = addrRef.current.value;
     currentUser.email = emailRef.current.value;
 
-    //console.log("User to update: ", currentUser)
+    if(userImgRef.current.value){
+      currentUser.image = userImgRef.current.value;
+    }
+
+    console.log("User to update: ", currentUser)
     update(currentUser, setUpdateSuccess);
 
   }
@@ -48,12 +95,12 @@ const ProfilePage = ({
   }
 
   return (
-      <Grid container component="main" className={classes.root}>
+      <Grid container component="main" className={pageStyles.root}>
         <CssBaseline />
         <Grid item xs="auto" sm={8} md={5} component={Paper} elevation={6} square>
           <Container component="main" maxWidth="xs">
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
+            <div className={pageStyles.paper}>
+              <Avatar className={pageStyles.avatar}>
                 <Face />
               </Avatar>
               <Link href="/">
@@ -65,7 +112,7 @@ const ProfilePage = ({
               <Typography component="h1" variant="h5">
                 {currentUser.username}'s Profile
               </Typography>
-              <form className={classes.form} noValidate>
+              <form className={pageStyles.form} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -145,12 +192,22 @@ const ProfilePage = ({
                         inputRef = {pwdRef}
                     />
                   </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                        variant="outlined"
+                        fullWidth
+                        id="userImage"
+                        label="New Profile Image Link"
+                        name="userImage"
+                        inputRef = {userImgRef}
+                    />
+                  </Grid>
                 </Grid>
                 <Button
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}
+                    className={pageStyles.submit}
                     onClick={() => onClickUpdate()}
                 >
                   Update Info
@@ -168,7 +225,7 @@ const ProfilePage = ({
             </Box>
           </Container>
         </Grid>
-        <Grid item xs={false} sm={4} md={7} className={classes.user_image} />
+        <Grid item xs={false} sm={4} md={7} className={imgStyle.user_image} />
       </Grid>
   );
 }
