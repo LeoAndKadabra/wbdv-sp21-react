@@ -29,6 +29,7 @@ const Home = () => {
         UserService.getCurrentUser()
             .then(user => {
                 setCurrentUser(user)
+                console.log("homeSession User: ", user)
                 return user
             })
             .then((user) => {

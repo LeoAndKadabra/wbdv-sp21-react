@@ -82,37 +82,40 @@ const LoginPage = ({
           <Avatar className={classes.avatar}>
             <LocalMovies />
           </Avatar>
-          <h1>
-            {currentUser.username}
-          </h1>
           {
             loginSuccess && <p className="text-success"> Login Succeeded </p>
           }
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h1" variant="h4">
+            Sign In
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                label="name"
-                name="name"
-                inputRef={userRef}
-                autoComplete="lname"
-            />
-            <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                inputRef={pwdRef}
-                autoComplete="current-password"
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="name"
+                    label="name"
+                    name="name"
+                    inputRef={userRef}
+                    autoComplete="name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    inputRef={pwdRef}
+                    autoComplete="current-password"
+                />
+              </Grid>
+            </Grid>
             <Button
                 fullWidth
                 variant="contained"
