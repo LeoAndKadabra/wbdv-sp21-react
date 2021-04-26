@@ -55,6 +55,16 @@ const MovieCommentList = (
             ]
         }
         CommentService.updateComment(commentToLike._id, newComment)
+            .then(updatedComment => {
+                const newComments = comments.map(comment => {
+                    if(comment._id === updatedComment._id) {
+                        return updatedComment
+                    } else {
+                        return comment
+                    }
+                })
+                setComments(newComments)
+            })
     }
 
     const deleteComment = (commentToDel) => {

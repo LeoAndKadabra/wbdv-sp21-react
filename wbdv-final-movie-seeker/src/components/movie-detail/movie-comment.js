@@ -39,7 +39,7 @@ const MovieComment =
                     variant="contained"
                     className="float-right text-success"
                     onClick={() => likeComment(comment)}>
-                    Like
+                    Like {comment.likedUsers.length > 0 ? comment.likedUsers.length : ""}
                 </Button>}
             </Grid>
             {
