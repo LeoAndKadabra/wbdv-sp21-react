@@ -17,7 +17,7 @@ export const SearchPage = () => {
 
     return (
         <>
-            <TopBar currentUser={currentUser} headingText="Welcome Seek"/>
+            <TopBar currentUser={currentUser} headingText="Here the Seeking begins" />
             <NavBar />
             <MovieList />
         </>

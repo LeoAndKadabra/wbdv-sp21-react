@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-
+import Box from '@material-ui/core/Box';
 
 const TopBar = ({headingText, currentUser}) => {
     const useStyles = makeStyles((theme) => ({
@@ -26,6 +26,7 @@ const TopBar = ({headingText, currentUser}) => {
     }));
 
     return (
+        <Box pb={3}>
     <AppBar position="static">
         <Toolbar>
             <Link to="/" className="pr-2">
@@ -60,6 +61,7 @@ const TopBar = ({headingText, currentUser}) => {
             }
         </Toolbar>
     </AppBar>
+        </Box>
     )}
 
 export default TopBar
