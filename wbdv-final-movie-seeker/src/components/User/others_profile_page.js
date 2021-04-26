@@ -70,6 +70,15 @@ const OthersProfilePage = ({
   }));
   let imgStyle = user_image_style();
 
+  function AdminLabelText(){
+    if (currentUser.isAdmin){
+      return "User Is Admin"
+    }
+    else{
+      return "User Is Not Admin"
+    }
+  }
+
   return (
       <Grid container component="main" className={pageStyles.root}>
         <CssBaseline />
@@ -153,10 +162,9 @@ const OthersProfilePage = ({
                 </Grid>
                 <Grid>
                   <FormControl component="fieldset">
-
                       <FormControlLabel
-                          control={<Switch checked={currentUser.isAdmin || false} name="isAdmin" />}
-                          label="User is admin"
+                          control={<Switch disabled checked={currentUser.isAdmin || false} name="isAdmin" />}
+                          label={AdminLabelText()}
                       />
 
                   </FormControl>

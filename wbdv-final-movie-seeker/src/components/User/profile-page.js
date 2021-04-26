@@ -24,10 +24,6 @@ import FormControlLabel
 import Switch from "@material-ui/core/Switch/Switch";
 import {Link} from "react-router-dom";
 
-//TODO:
-//. All Comments from user List page
-//. Rely on service getCurrentUser.
-
 
 const ProfilePage = ({
   currentUser={},
@@ -89,9 +85,6 @@ const ProfilePage = ({
 
   //admin setter
   const [adminState, setAdminState] = React.useState(currentUser.isAdmin);
-  const handleAdminChange = (event) => {
-    setAdminState(event.target.checked);
-  };
 
   //gender setter
   const [genderState, setGender] = useState(currentUser.gender);
@@ -102,7 +95,6 @@ const ProfilePage = ({
   function onClickUpdate() {
     currentUser.address = addrRef.current.value;
     currentUser.email = emailRef.current.value;
-    currentUser.isAdmin = adminState.valueOf();
     currentUser.gender = genderState;
     currentUser.favMovie = favMovieRef.current.value;
     currentUser.favGenre = favGenreRef.current.value;
@@ -119,6 +111,15 @@ const ProfilePage = ({
 
   function onClickLogout() {
     logout(currentUser);
+  }
+
+  function AdminLabelText(){
+    if (adminState){
+      return "User Is Admin"
+    }
+    else{
+      return "User Is Not Admin"
+    }
   }
 
   return (
@@ -140,6 +141,7 @@ const ProfilePage = ({
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
+                        defaultValue={1}
                         value={currentUser.username}
                        // disabled
                         fullWidth
@@ -150,6 +152,7 @@ const ProfilePage = ({
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                        defaultValue={1}
                         value={currentUser.address}
                         fullWidth
                         id="homeAddress-show"
@@ -171,6 +174,7 @@ const ProfilePage = ({
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                        defaultValue={1}
                         value={currentUser.email}
                         fullWidth
                         //disabled
@@ -194,6 +198,7 @@ const ProfilePage = ({
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                        defaultValue={1}
                         value={currentUser.favGenre}
                         fullWidth
                         id="favGenre-show"
@@ -215,6 +220,7 @@ const ProfilePage = ({
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
+                        defaultValue={1}
                         value={currentUser.favMovie}
                         fullWidth
                         name="Favorite Movie"
@@ -281,8 +287,8 @@ const ProfilePage = ({
                   <FormControl component="fieldset">
                     <FormGroup>
                       <FormControlLabel
-                          control={<Switch checked={adminState} onChange={handleAdminChange} name="isAdmin" />}
-                          label="User is admin"
+                          control={<Switch checked={adminState} disabled name="isAdmin" />}
+                          label={AdminLabelText()}
                       />
                     </FormGroup>
                   </FormControl>
