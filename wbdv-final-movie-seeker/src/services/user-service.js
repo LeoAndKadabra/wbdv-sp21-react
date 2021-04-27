@@ -18,7 +18,13 @@ export const register = (user) =>
         credentials: "include"
     })
     .then(
-        response => response.json()
+        response => {
+            if (response.status >= 400)
+                return {
+                    username: ""
+                }
+            return response.json()
+        }
     );
 
 export const login = (user) =>

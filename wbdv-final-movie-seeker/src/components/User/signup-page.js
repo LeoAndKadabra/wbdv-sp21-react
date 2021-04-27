@@ -18,6 +18,7 @@ import Switch from '@material-ui/core/Switch';
 import userService from '../../services/user-service'
 import { useHistory } from "react-router-dom";
 import TopBar from "../top-bar";
+import Alert from "@material-ui/lab/Alert";
 
 export default function SignUpPage() {
   const history = useHistory()
@@ -42,6 +43,8 @@ export default function SignUpPage() {
     setGender(event.target.value)
   }
 
+  const [signupFail, setSignupFail] = useState(false)
+
   return (
       <>
       <Grid container spacing={3}>
@@ -55,6 +58,9 @@ export default function SignUpPage() {
           <Avatar className={classes.avatar}>
             <AddToQueue />
           </Avatar>
+          {
+            signupFail && <Alert severity="error">Sign Up failed! Please use another username!</Alert>
+          }
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
@@ -202,9 +208,14 @@ export default function SignUpPage() {
                         favGenre: favGenreRef.current.value,
                         image: imageRef.current.value
                     }).then(
-                        user => console.log("registeredUser: ", user)
+                        user => {
+                          console.log("registeredUser: ", user)
+                          if (user.username === "") {
+                            setSignupFail(true)
+                          } else
+                            history.push("/login");
+                        }
                     );
-                  history.push("/login");
                 }}
             >
               Sign Up
@@ -222,5 +233,4 @@ export default function SignUpPage() {
         </Box>
       </Container>
         </>
-  );
-}
+)}
