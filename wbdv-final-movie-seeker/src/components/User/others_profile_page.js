@@ -35,6 +35,7 @@ const OthersProfilePage = ({
   // States
   const [updateSuccess, setUpdateSuccess] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
+  const [loggedInUser, setloggedInUser] = useState({})
 
   useEffect(() => {
     UserService.getOtherUser(userId)
@@ -43,6 +44,13 @@ const OthersProfilePage = ({
       console.log("CurrentUser:", user);
       setUpdateSuccess(true)
     });
+
+    UserService.getCurrentUser()
+    .then(user => {
+      setloggedInUser(user)
+      console.log("Loggedin User: ", loggedInUser)
+      return user
+    })
   }, []);
 
   // Set user profile image based on signup info
@@ -70,6 +78,36 @@ const OthersProfilePage = ({
     else{
       return "User Is Not Admin"
     }
+  }
+
+  function StatsButton(props) {
+    return (
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={pageStyles.submit}
+            onClick={() => history.push(currentUser.username+"/stats")}
+        >
+          Summary Stats
+        </Button>
+    );
+  }
+
+  function LoginPromptText(props) {
+    return (
+        <Grid>
+        <Link to="/login">
+          Log in to see user's Summary Stats
+        </Link>
+        </Grid>
+    );
+  }
+  let button;
+  if (loggedInUser.username) {
+    button = <StatsButton/>;
+  } else {
+    button = <LoginPromptText/>;
   }
 
   return (
@@ -158,20 +196,11 @@ const OthersProfilePage = ({
                           control={<Switch disabled checked={currentUser.isAdmin || false} name="isAdmin" />}
                           label={AdminLabelText()}
                       />
-
                   </FormControl>
                 </Grid>
                 </Grid>
               </form>
-              <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={pageStyles.submit}
-                  onClick={() => history.push(currentUser.username+"/stats")}
-              >
-                Summary Stats
-              </Button>
+              {button}
             </div>
             <Box mt={5}>
             </Box>
