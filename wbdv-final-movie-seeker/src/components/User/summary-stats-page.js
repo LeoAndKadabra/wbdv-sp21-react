@@ -56,10 +56,6 @@ const SummaryStats = () => {
         history.push("/login");
       }
       else {
-        CommentService.getAllCommentsForUser(displayUser.username)
-        .then(comments => {
-          setComments(comments)
-        });
         CommentService.getAllCommentsForUser(user.username)
         .then(comments => {
           setSelfUserComments(comments)
@@ -104,7 +100,10 @@ const SummaryStats = () => {
     }
   }
 
-  function getComparisonResult(yourNum, targetNum, itemName) {
+  function getComparisonResult(yourNum, targetNum, itemName, currentUser, displayUser) {
+    if(currentUser.username === displayUser.username){
+      return "you are viewing your own stats"
+    }
     if(yourNum > targetNum){
       return "This is "+ percDiff(yourNum, targetNum) + "% less than your " + itemName
     }else if(yourNum < targetNum){
@@ -115,7 +114,7 @@ const SummaryStats = () => {
   }
 
   function percDiff (A, B){
-    return  Math.round(100 * Math.abs( (A - B) / ( A )));
+    return  Math.round(100 * Math.abs( (A - B) / ((A+B)/2)));
   }
 
   return(
@@ -128,14 +127,14 @@ const SummaryStats = () => {
               <Card>
                 <CardHeader
                     title="Total Comments:"
-                    subheader="num comments submitted"
+                    subheader="Num comments submitted"
                 />
                 <CardContent>
                   <Typography variant="h3" component="p">
                     {comments.length}
                   </Typography>
                   <Typography variant="body" color="primary" component="p">
-                   {getComparisonResult(selfUserComments.length, comments.length, "comments")}
+                   {getComparisonResult(selfUserComments.length, comments.length, "comments", currentUser, displayUser)}
                   </Typography>
                 </CardContent>
               </Card>
@@ -144,7 +143,7 @@ const SummaryStats = () => {
               <Card>
                 <CardHeader
                     title="Liked Comments:"
-                    subheader="num other users' comments liked"
+                    subheader="Num comments this user liked"
                 />
                 <CardContent>
                   <Typography variant="h3" color="blue" component="p">
@@ -153,7 +152,7 @@ const SummaryStats = () => {
                   <Typography variant="body" color="textSecondary" component="p">
                   </Typography>
                   <Typography variant="body" color="primary" component="p">
-                    {getComparisonResult(getNumLikedComments(currentUser), getNumLikedComments(displayUser), "likes")}
+                    {getComparisonResult(getNumLikedComments(currentUser), getNumLikedComments(displayUser), "likes", currentUser, displayUser)}
                   </Typography>
                 </CardContent>
               </Card>

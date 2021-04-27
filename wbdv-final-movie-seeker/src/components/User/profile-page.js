@@ -255,7 +255,6 @@ const ProfilePage = ({
                         inputRef = {userImgRef}
                     />
                   </Grid>
-                </Grid>
                 <Grid item xs={12}>
                   <label>
                     <Radio
@@ -297,10 +296,20 @@ const ProfilePage = ({
                     </FormGroup>
                   </FormControl>
                 </Grid>
+                </Grid>
                 <Button
                     fullWidth
                     variant="contained"
                     color="primary"
+                    className={pageStyles.submit}
+                    onClick={() => history.push("profile/"+ currentUser.username+"/stats")}
+                >
+                  Summary Stats
+                </Button>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
                     className={pageStyles.submit}
                     onClick={() => onClickUpdate()}
                 >

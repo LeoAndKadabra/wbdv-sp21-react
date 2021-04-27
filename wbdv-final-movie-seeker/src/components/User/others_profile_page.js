@@ -20,6 +20,7 @@ import FormControlLabel
 import Switch from "@material-ui/core/Switch/Switch";
 import {Link} from "react-router-dom";
 import { useLocation } from 'react-router';
+import Button from "@material-ui/core/Button";
 
 
 
@@ -120,7 +121,6 @@ const OthersProfilePage = ({
                         id="favMovie-show"
                     />
                   </Grid>
-                </Grid>
                 <Grid item xs={12}>
                   <label>
                     <Radio
@@ -161,7 +161,17 @@ const OthersProfilePage = ({
 
                   </FormControl>
                 </Grid>
+                </Grid>
               </form>
+              <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={pageStyles.submit}
+                  onClick={() => history.push(currentUser.username+"/stats")}
+              >
+                Summary Stats
+              </Button>
             </div>
             <Box mt={5}>
             </Box>
