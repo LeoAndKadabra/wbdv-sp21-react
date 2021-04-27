@@ -78,7 +78,7 @@ const Home = () => {
                             />
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    Are you interested in it?
+                                    Interested?
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -99,7 +99,7 @@ const Home = () => {
                             />
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    Are you interested in it?
+                                    Interested?g
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -121,7 +121,7 @@ const Home = () => {
                             />
                             <CardContent>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    Are you interested in it?
+                                    Interested?
                                 </Typography>
                             </CardContent>
                         </Card>

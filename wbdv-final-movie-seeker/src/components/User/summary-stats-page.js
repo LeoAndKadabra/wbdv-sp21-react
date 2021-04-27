@@ -130,7 +130,7 @@ const SummaryStats = () => {
   }
 
   function percDiff (A, B){
-    return  Math.round(100 * Math.abs( (A - B) / ((A+B)/2)));
+    return  Math.round(100 * Math.abs( (A - B) / (A)));
   }
 
   function LikeStatCard(props) {
@@ -163,7 +163,7 @@ const SummaryStats = () => {
           />
           <CardContent>
             <Typography variant="h3" color="blue" component="p">
-              {getNumLikedComments(displayUser)}
+              {getNumDeletedComments(displayUser)}
             </Typography>
             <Typography variant="body" color="textSecondary" component="p">
             </Typography>

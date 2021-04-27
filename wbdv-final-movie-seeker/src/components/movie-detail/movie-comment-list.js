@@ -36,6 +36,9 @@ const MovieCommentList = (
     }
 
     const likeComment = (commentToLike) => {
+        if (!currentUser || currentUser.username === "")
+            return
+
         // add comment to user/userlike
         const newCurrentUser = {
             ...currentUser,
