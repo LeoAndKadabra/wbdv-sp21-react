@@ -71,7 +71,7 @@ const SummaryStats = () => {
     });
 
     // get comments for display user
-    CommentService.getAllCommentsForUser(displayUser.username)
+    CommentService.getAllCommentsForUser(userId)
     .then(comments => {
       setComments(comments)
     });
