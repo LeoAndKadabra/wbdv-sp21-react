@@ -4,6 +4,7 @@ import CommentService, {updateComment} from "../../services/comment-service"
 import SimpleRating from "../../components/movie-detail/movie-rating"
 import { Button, Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import UserService from "../../services/user-service";
 
 const MovieCommentList = (
     {
@@ -11,8 +12,8 @@ const MovieCommentList = (
         currentUser
     }) => {
     const [comments, setComments] = useState([])
-    const [cachedComment, setCachedComment] = useState("new comment")
-    const [rating, setRating] = useState()
+    const [cachedComment, setCachedComment] = useState("")
+    const [rating, setRating] = useState(5)
 
     const createComment = () => {
         if (!currentUser || currentUser.username === "") {
@@ -33,8 +34,37 @@ const MovieCommentList = (
                     newComment
                 ])})
     }
-    const likeComment = (userLikeComment, commentToLike) => {
 
+    const likeComment = (commentToLike) => {
+        // add comment to user/userlike
+        const newCurrentUser = {
+            ...currentUser,
+            likedComments: currentUser.likedComments ? [commentToLike._id] : [
+                ...currentUser.likedComments,
+                commentToLike._id
+            ]
+        }
+        UserService.updateUser(newCurrentUser)
+
+        // add user to comment/likedUser
+        const newComment = {
+            ...commentToLike,
+            likedUsers: commentToLike.likedUsers ? [currentUser.username]: [
+                ...commentToLike.likedUsers,
+                currentUser.username
+            ]
+        }
+        CommentService.updateComment(commentToLike._id, newComment)
+            .then(updatedComment => {
+                const newComments = comments.map(comment => {
+                    if(comment._id === updatedComment._id) {
+                        return updatedComment
+                    } else {
+                        return comment
+                    }
+                })
+                setComments(newComments)
+            })
     }
 
     const deleteComment = (commentToDel) => {
@@ -79,17 +109,23 @@ const MovieCommentList = (
                     onChange={(e) =>
                         setCachedComment(e.target.value)}
                     placeholder="Please enter your comment."
+                    value={cachedComment}
                     className="form-control mp-2"></textarea>
                 <Grid item container direction={"row"} xs={12} spacing={1}>
                     <Grid item xs={9}>
                         <SimpleRating
+                            value={5}
                             style={{ marginTop: 10 }}
                             setRating={setRating}/>
                     </Grid>
                     <Grid item xs={3}>
                         <Button
                             style={{marginTop: 10 }}
-                            onClick={() => createComment()}
+                            onClick={() =>
+                                {
+                                    createComment()
+                                    setCachedComment("")
+                                }}
                             variant="contained" color="primary" className="float-right">
                             Submit
                         </Button>

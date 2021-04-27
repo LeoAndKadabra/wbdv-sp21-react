@@ -14,7 +14,8 @@ export let commentList = [
   // }
 ]
 
-const COMMENT_URL = "http://localhost:8080/comments";
+const COMMENT_URL = "https://movie-seeker.herokuapp.com/comments";
+// const COMMENT_URL = "http://localhost:8080/comments";
 
 export const getLatestSeveralComments = (limit) => {
   return fetch(`${COMMENT_URL}?limit=${limit}`)
@@ -55,10 +56,10 @@ export const getAllCommentsForUser = (username) =>{
 };
 
 export const getLatest3CommentsForUser = (username) =>{
-  return fetch(`${COMMENT_URL}?username=${username}`, {
+  return fetch(`${COMMENT_URL}?username=${username}&limit=3`, {
     credentials: "include"
   })
-      .then(response => response.json()).then(comments => comments.slice(-3))
+      .then(response => response.json())
 };
 
 export const deleteComment = (commentId) => {
@@ -77,10 +78,15 @@ export const deleteComment = (commentId) => {
   .then(response => response.json());
 };
 
-export const updateComment= (commentId, NewComment) => {
-  deleteComment(commentId);
-  createComment(NewComment)
-};
+export const updateComment= (commentId, NewComment) =>
+  fetch(`${COMMENT_URL}`, {
+    method: 'PUT',
+    body: JSON.stringify(NewComment),
+    credentials: "include",
+    headers: {
+      'content-type': 'application/json'
+    }
+  }).then(response => response.json());
 
 export default {
   createComment,
