@@ -43,6 +43,9 @@ const OthersProfilePage = ({
       setCurrentUser(user);
       console.log("CurrentUser:", user);
       setUpdateSuccess(true)
+      if(user.username === userId){
+        history.push("/profile")
+      }
     });
 
     UserService.getCurrentUser()

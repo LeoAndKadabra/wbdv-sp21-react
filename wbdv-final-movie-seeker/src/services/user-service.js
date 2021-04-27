@@ -6,7 +6,7 @@
 
 
 const USER_URL = "https://movie-seeker.herokuapp.com/users";
-// const USER_URL = "http://localhost:8080/users";
+//const USER_URL = "http://localhost:8080/users";
 
 export const register = (user) =>
     fetch(`${USER_URL}/register`, {
