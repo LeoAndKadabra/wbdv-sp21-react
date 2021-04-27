@@ -6,9 +6,15 @@ import appStore from './app-store';
 import RollDice from "./roll-dice";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
+import {useHistory} from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import SearchIcon from '@material-ui/icons/Search';
+import Input from '@material-ui/core/Input';
 
 // this is re-rendered whenever the relevant parts of the used data stores change
-const NavBar = () => {
+const NavBar = ({movieToSearch, setMovieToSearch}) => {
+    const history = useHistory()
+
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1
@@ -20,15 +26,20 @@ const NavBar = () => {
         container
         spacing={1}
         className={useStyles.root}>
-        <Grid item style={{ flex: 1 }}>
-            <SearchBar
-                onRequestSearch={appStore.findMoviesByTitle}
-                placeholder="Search a movie ..."
-            />
-            {appStore.isLoading && <LinearProgress />}
+        <Grid item xs={11}>
+            <Input
+                onChange={(e) =>
+                    setMovieToSearch(e.target.value)}
+                value={movieToSearch}
+                placeholder="Movie to search"
+                style={{ width: "100%" }}
+                inputProps={{ 'aria-label': 'description' }} />
         </Grid>
-        <Grid item>
-            <RollDice className="float-right"/>
+        <Grid item xs={1}>
+            <Button
+                onClick={() => history.push(`search/${movieToSearch}`)}>
+                <SearchIcon className="float-right"/>
+            </Button>
         </Grid>
     </Grid>
 )};
