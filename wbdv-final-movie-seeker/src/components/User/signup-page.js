@@ -21,6 +21,10 @@ import TopBar from "../top-bar";
 import Alert from "@material-ui/lab/Alert";
 
 export default function SignUpPage() {
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+
   const history = useHistory()
   const classes = userPageStyles();
   const userRef = useRef("user");
@@ -43,6 +47,7 @@ export default function SignUpPage() {
     setGender(event.target.value)
   }
 
+  const [signupSucceeded, setSignupSucceeded] = useState(false)
   const [signupFail, setSignupFail] = useState(false)
 
   return (
@@ -58,6 +63,9 @@ export default function SignUpPage() {
           <Avatar className={classes.avatar}>
             <AddToQueue />
           </Avatar>
+          {
+            signupSucceeded && <Alert severity="success">Sign Up succeeded!</Alert>
+          }
           {
             signupFail && <Alert severity="error">Sign Up failed! Please use another username!</Alert>
           }
@@ -212,8 +220,12 @@ export default function SignUpPage() {
                           console.log("registeredUser: ", user)
                           if (user.username === "") {
                             setSignupFail(true)
-                          } else
-                            history.push("/login");
+                          } else {
+                            setSignupSucceeded(true)
+                            sleep(1000).then(() => {
+                              history.push("/login");
+                            })
+                          }
                         }
                     );
                 }}
