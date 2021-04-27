@@ -7,6 +7,7 @@ import SignupPage from "./components/User/signup-page";
 import {BrowserRouter, Route} from "react-router-dom";
 import React from 'react'
 import OthersProfilePage from "./components/User/others_profile_page";
+import SummaryStats from "./components/User/summary-stats-page";
 
 const App = () => {
   return (
@@ -23,8 +24,11 @@ const App = () => {
             <DetailPage/>
           </Route>
         <Route path={["/profile/:userId"]} exact={true}>
-            <OthersProfilePage/>
+          <OthersProfilePage/>
         </Route>
+          <Route path={["/profile/:userId/stats"]} exact={true}>
+            <SummaryStats/>
+          </Route>
           <Route path="/profile" exact={true}>
             <ProfilePage/>
           </Route>
