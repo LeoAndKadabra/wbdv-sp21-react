@@ -3,24 +3,24 @@ import appStore from './app-store';
 import {Link, useParams, useHistory} from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 
-const RollDice = () => {
+const RollDice = ({list}) => {
 
   const history = useHistory()
 
-  const rollDice = () => {
-    const list = appStore.movies
-    const randomMovie = list[Math.floor((Math.random()*list.length))];
-    if (randomMovie === undefined) {
-      alert("Please choose search a movie first!")
-    } else {
-      history.push(`/details/${randomMovie.imdbID}`)
-    }
+  const rollDice = (list) => {
+      const randomIndex = Math.floor((Math.random() * list.length))
+      const randomMovie = list[randomIndex];
+      if (randomMovie === undefined) {
+          alert("Please choose search a movie first!")
+      } else {
+          history.push(`/details/${randomMovie.imdbID}`)
+      }
   }
 
   return (
       <div>
         <Button
-            onClick={() => rollDice()}
+            onClick={() => rollDice(list)}
             className="btn btn-primary">
           <i className="fas fa-dice fa-2x"></i>
         </Button>
