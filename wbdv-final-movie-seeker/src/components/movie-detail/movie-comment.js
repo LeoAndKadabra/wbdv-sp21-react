@@ -35,7 +35,7 @@ const MovieComment =
                 </p>
             </Grid>
             <Grid item>
-                {(!turnOnMovieLink && currentUser.username !== comment.username && currentUser.isAdmin !== "true") && <Button
+                {(!turnOnMovieLink && currentUser.username !== comment.username && !currentUser.isAdmin) && <Button
                     variant="contained"
                     className="float-right text-success"
                     onClick={() => likeComment(comment)}>
@@ -43,7 +43,7 @@ const MovieComment =
                 </Button>}
             </Grid>
             {
-                (!turnOnMovieLink && (currentUser.username === comment.username || currentUser.isAdmin === "true")) &&
+                (!turnOnMovieLink && (currentUser.username === comment.username || currentUser.isAdmin)) &&
                 <Grid item>
                     <Button
                         variant="contained"
