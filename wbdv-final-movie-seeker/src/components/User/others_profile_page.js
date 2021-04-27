@@ -43,15 +43,15 @@ const OthersProfilePage = ({
       setCurrentUser(user);
       console.log("CurrentUser:", user);
       setUpdateSuccess(true)
-      if(user.username === userId){
-        history.push("/profile")
-      }
     });
 
     UserService.getCurrentUser()
     .then(user => {
       setloggedInUser(user)
       console.log("Loggedin User: ", loggedInUser)
+      if(user.username === userId){
+        history.push("/profile")
+      }
       return user
     })
   }, []);

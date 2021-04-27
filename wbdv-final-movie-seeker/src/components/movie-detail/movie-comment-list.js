@@ -71,7 +71,17 @@ const MovieCommentList = (
         CommentService.deleteComment(commentToDel._id)
             .then(status => {
                 console.log(status)
-                setComments(comments.filter(curComment => curComment._id!== commentToDel._id))})
+                setComments(comments.filter(curComment => curComment._id!== commentToDel._id))
+                if(currentUser.isAdmin){
+                    if(currentUser.numberDeleted){
+                        currentUser.numberDeleted += 1
+                    }
+                    else{
+                        currentUser.numberDeleted = 1
+                    }
+                    UserService.updateUser(currentUser).
+                        then(user => {console.log("updated delete: ", user)})
+                }})
     }
 
     useEffect(() => {

@@ -14,8 +14,8 @@ export let commentList = [
   // }
 ]
 
-const COMMENT_URL = "https://movie-seeker.herokuapp.com/comments";
-//const COMMENT_URL = "http://localhost:8080/comments";
+//const COMMENT_URL = "https://movie-seeker.herokuapp.com/comments";
+const COMMENT_URL = "http://localhost:8080/comments";
 
 export const getLatestSeveralComments = (limit) => {
   return fetch(`${COMMENT_URL}?limit=${limit}`)

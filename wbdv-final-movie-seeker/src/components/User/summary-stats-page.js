@@ -10,8 +10,9 @@ import CommentService from "../../services/comment-service";
 import UserService from "../../services/user-service";
 import CommentList from "../general-comment/comment-list";
 import TopBar from "../top-bar";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import { useLocation } from 'react-router';
+import Button from "@material-ui/core/Button";
 
 const summaryPageStyles = makeStyles((theme) => ({
   root: {
@@ -100,9 +101,24 @@ const SummaryStats = () => {
     }
   }
 
+  function getNumDeletedComments(user) {
+    if(user.numberDeleted){
+      return user.numberDeleted
+    }
+    else{
+      return 0
+    }
+  }
+
   function getComparisonResult(yourNum, targetNum, itemName, currentUser, displayUser) {
     if(currentUser.username === displayUser.username){
-      return "you are viewing your own stats"
+      return "You are viewing your own stats"
+    }
+    if(targetNum === 0){
+      return "This user don't have any " + itemName + " yet"
+    }
+    if(yourNum === 0){
+      return "You don't have any " + itemName + " yet"
     }
     if(yourNum > targetNum){
       return "This is "+ percDiff(yourNum, targetNum) + "% less than your " + itemName
@@ -116,6 +132,55 @@ const SummaryStats = () => {
   function percDiff (A, B){
     return  Math.round(100 * Math.abs( (A - B) / ((A+B)/2)));
   }
+
+  function LikeStatCard(props) {
+    return (
+        <Card>
+          <CardHeader
+              title="Liked Comments:"
+              subheader="Num comments this user liked"
+          />
+          <CardContent>
+            <Typography variant="h3" color="blue" component="p">
+              {getNumLikedComments(displayUser)}
+            </Typography>
+            <Typography variant="body" color="textSecondary" component="p">
+            </Typography>
+            <Typography variant="body" color="primary" component="p">
+              {getComparisonResult(getNumLikedComments(currentUser), getNumLikedComments(displayUser), "likes", currentUser, displayUser)}
+            </Typography>
+          </CardContent>
+        </Card>
+    );
+  }
+
+  function DeleteStatCard(props) {
+    return (
+        <Card>
+          <CardHeader
+              title="Deleted Comments:"
+              subheader="Num comments this admin deleted"
+          />
+          <CardContent>
+            <Typography variant="h3" color="blue" component="p">
+              {getNumLikedComments(displayUser)}
+            </Typography>
+            <Typography variant="body" color="textSecondary" component="p">
+            </Typography>
+            <Typography variant="body" color="primary" component="p">
+              {getComparisonResult(getNumDeletedComments(currentUser), getNumDeletedComments(displayUser), "deleted comments", currentUser, displayUser)}
+            </Typography>
+          </CardContent>
+        </Card>
+    );
+  }
+  let card;
+  if (displayUser.isAdmin) {
+    card = <DeleteStatCard/>;
+  } else {
+    card = <LikeStatCard/>;
+  }
+
 
   return(
       <Grid container spacing={3}>
@@ -140,22 +205,7 @@ const SummaryStats = () => {
               </Card>
           </Grid>
           <Grid item xs={6}>
-              <Card>
-                <CardHeader
-                    title="Liked Comments:"
-                    subheader="Num comments this user liked"
-                />
-                <CardContent>
-                  <Typography variant="h3" color="blue" component="p">
-                    {getNumLikedComments(displayUser)}
-                  </Typography>
-                  <Typography variant="body" color="textSecondary" component="p">
-                  </Typography>
-                  <Typography variant="body" color="primary" component="p">
-                    {getComparisonResult(getNumLikedComments(currentUser), getNumLikedComments(displayUser), "likes", currentUser, displayUser)}
-                  </Typography>
-                </CardContent>
-              </Card>
+            {card}
           </Grid>
         </Grid>
         <Grid item xs = {12}>
