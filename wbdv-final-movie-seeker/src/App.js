@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import React from 'react'
 import OthersProfilePage from "./components/User/others_profile_page";
 import SummaryStats from "./components/User/summary-stats-page";
+import {SearchResultPage} from "./components/movie-search/search-result";
 
 const App = () => {
   return (
@@ -16,10 +17,14 @@ const App = () => {
           <Route path="/" exact={true}>
             <Home/>
           </Route>
-          <Route path={["/search", "/search/:title"]}
+          <Route path={["/search"]}
                  exact={true}>
             <SearchPage/>
           </Route>
+            <Route path={["/search/:title"]}
+                   exact={true}>
+                <SearchResultPage/>
+            </Route>
           <Route path="/details/:imdbID" exact={true}>
             <DetailPage/>
           </Route>
