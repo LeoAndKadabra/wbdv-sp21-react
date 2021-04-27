@@ -5,8 +5,8 @@
 // DeleteUser
 
 
-const USER_URL = "https://movie-seeker.herokuapp.com/users";
-// const USER_URL = "http://localhost:8080/users";
+//const USER_URL = "https://movie-seeker.herokuapp.com/users";
+ const USER_URL = "http://localhost:8080/users";
 
 export const register = (user) =>
     fetch(`${USER_URL}/register`, {
@@ -18,7 +18,13 @@ export const register = (user) =>
         credentials: "include"
     })
     .then(
-        response => response.json()
+        response => {
+            if (response.status >= 400)
+                return {
+                    username: ""
+                }
+            return response.json()
+        }
     );
 
 export const login = (user) =>
