@@ -46,7 +46,11 @@ const ProfilePage = ({
     .then(user => {
       currentUser = user;
       setSessionUser(user);
-      console.log("SessionUser:", user);
+     if(!user.username){
+       // Alert then force quit
+       window.alert("You must login to edit your profile info");
+       history.push("/login");
+     }
     });
 
     // get comments from server

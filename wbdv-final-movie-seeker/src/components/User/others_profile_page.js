@@ -15,13 +15,12 @@ import UserService from "../../services/user-service";
 import {makeStyles} from "@material-ui/core";
 import Radio from "@material-ui/core/Radio/Radio";
 import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import FormControlLabel
   from "@material-ui/core/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
 import {Link} from "react-router-dom";
 import { useLocation } from 'react-router';
-import queryString from 'query-string';
+
 
 
 const OthersProfilePage = ({
@@ -35,7 +34,6 @@ const OthersProfilePage = ({
   // States
   const [updateSuccess, setUpdateSuccess] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
-  const [comments, setComments] = useState([])
 
   useEffect(() => {
     UserService.getOtherUser(userId)
@@ -44,13 +42,7 @@ const OthersProfilePage = ({
       console.log("CurrentUser:", user);
       setUpdateSuccess(true)
     });
-
-    // get comments from server
-    CommentService.getLatest3CommentsForUser(currentUser.username)
-    .then(comments => {
-      setComments(comments)
-    });
-  }, [])
+  }, []);
 
   // Set user profile image based on signup info
   let imageUrl = 'url(https://i.pinimg.com/originals/7a/f8/28/7af8280fc6c75bc2191f4eed895a461d.jpg)'
